@@ -2,22 +2,22 @@
 <html>
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Hello World - Hexo</title>
+<title>Hexo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+    <meta name="description" content="常用js代码片段1.获取当前时间（年-月-日 时:分）module.exports = {     getNowTime (connector) { // connector 连接符，不传默认为 -         if (!connector) connector = &amp;apos;-&amp;apos;         const nowTime = new Date()         const n">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2019/03/16/hello-world/index.html">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2019/03/16/2018-02-19-常用代码片段/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="常用js代码片段1.获取当前时间（年-月-日 时:分）module.exports = {     getNowTime (connector) { // connector 连接符，不传默认为 -         if (!connector) connector = &amp;apos;-&amp;apos;         const nowTime = new Date()         const n">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-16T08:11:52.304Z">
+<meta property="og:updated_time" content="2019-03-16T10:09:22.234Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="常用js代码片段1.获取当前时间（年-月-日 时:分）module.exports = {     getNowTime (connector) { // connector 连接符，不传默认为 -         if (!connector) connector = &amp;apos;-&amp;apos;         const nowTime = new Date()         const n">
 
 
 
@@ -89,7 +89,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="Hello World" height="28">
+                <img src="/images/logo.svg" alt height="28">
             
             </a>
         </div>
@@ -140,13 +140,13 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-03-16T08:11:52.303Z">2019-03-16</time>
+                <time class="level-item has-text-grey" datetime="2019-03-16T10:09:19.978Z">2019-03-16</time>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    a minute read (About 121 words)
+                    2 minutes read (About 319 words)
                 </span>
                 
                 
@@ -155,20 +155,65 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                Hello World
+                
             
         </h1>
         <div class="content">
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="hljs-string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+            <h4 id="常用js代码片段"><a href="#常用js代码片段" class="headerlink" title="常用js代码片段"></a>常用js代码片段</h4><h5 id="1-获取当前时间（年-月-日-时-分）"><a href="#1-获取当前时间（年-月-日-时-分）" class="headerlink" title="1.获取当前时间（年-月-日 时:分）"></a>1.获取当前时间（年-月-日 时:分）</h5><pre><code>module.exports = {
+    getNowTime (connector) { // connector 连接符，不传默认为 -
+        if (!connector) connector = &apos;-&apos;
+        const nowTime = new Date()
+        const nowMonth = nowTime.getMonth()+1 &lt; 10 ? &apos;0&apos; + (nowTime.getMonth()+1) : nowTime.getMonth() + 1
+        const nowDay = nowTime.getDay() &lt; 10 ? &apos;0&apos; + nowTime.getDay() : nowTime.getDay()
+        const nowHours = nowTime.getHours() &lt; 10 ? &apos;0&apos; + nowTime.getHours() : nowTime.getHours()
+        const nowMinute = nowTime.getMinutes() &lt; 10 ? &apos;0&apos; + nowTime.getMinutes() : nowTime.getMinutes()
+        return nowTime.getFullYear() + connector + nowMonth + connector + nowDay + &apos; &apos; + nowHours + &apos;:&apos; + nowMinute
+      }
+}
 
+// 获取结果为： 2018-02-12 17:08
+</code></pre><h5 id="2-向左滑动展示删除按钮功能"><a href="#2-向左滑动展示删除按钮功能" class="headerlink" title="2.向左滑动展示删除按钮功能"></a>2.向左滑动展示删除按钮功能</h5><pre><code>//向左滑动展示删除会议按钮
+function showDeleteWithSlide () {
+    var slideItem = $(&apos;.meetingList&apos;).find(&apos;ul&apos;);
+    var slideStartX=0, slideStartY=0, slideEndX=0, slideEndY=0, slideX=0, slideY=0;
+    slideItem.on(&apos;touchstart&apos;, function (e) {
+        e.stopPropagation();
+        slideStartX = e.changedTouches[0].clientX;
+        slideStartY = e.changedTouches[0].clientY;
+    });
+    slideItem.on(&apos;touchmove&apos;, function(e){
+        e.stopPropagation();
+        slideEndX = e.changedTouches[0].clientX;
+        slideEndY = e.changedTouches[0].clientY;
+        slideX = slideEndX - slideStartX;
+        slideY = slideEndY - slideStartY;
+        if(Math.abs(slideY) &gt;= Math.abs(slideX)) { //竖向滑动
+            slideItem.each(function(){
+                if($(this).hasClass(&apos;show-from-right&apos;)){
+                    $(this).removeClass(&apos;show-from-right&apos;).addClass(&apos;hide-to-right&apos;);
+                    if(&apos;meeting_type&apos; == $(this).children(&apos;li:last-child&apos;).attr(&apos;class&apos;) &amp;&amp; $(this).children(&apos;li:last-child&apos;).text()) $(this).children(&apos;li:last-child&apos;).show();
+                }
+            })
+            return; //竖向滑动释放默认行为
+        };
+        e.preventDefault();
+    });
+    slideItem.on(&apos;touchend&apos;, function(e){
+        e.stopPropagation();
+        if(slideX&lt;-50){
+            $(this).removeClass(&apos;hide-to-right&apos;).addClass(&apos;show-from-right&apos;);
+        }else if (slideX&gt;50) {
+            if($(this).hasClass(&apos;show-from-right&apos;)) $(this).removeClass(&apos;show-from-right&apos;).addClass(&apos;hide-to-right&apos;);
+        }
+
+        if(Math.abs(slideX)&gt;50 &amp;&amp; &apos;meeting_type&apos; == $(this).children(&apos;li:last-child&apos;).attr(&apos;class&apos;) &amp;&amp; &apos;show-from-right&apos; == $(this).attr(&apos;class&apos;)) {
+            $(this).children(&apos;li:last-child&apos;).hide();
+        }else if(Math.abs(slideX)&gt;50 &amp;&amp; &apos;meeting_type&apos; == $(this).children(&apos;li:last-child&apos;).attr(&apos;class&apos;) &amp;&amp; &apos;hide-to-right&apos; == $(this).attr(&apos;class&apos;) &amp;&amp; $(this).children(&apos;li:last-child&apos;).text()){
+            $(this).children(&apos;li:last-child&apos;).show();
+        };
+    })
+}
+</code></pre>
         </div>
         
         
@@ -218,12 +263,19 @@
     <div class="level post-navigation is-flex-wrap is-mobile">
         
         <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/03/16/2017-08-05-javascript基础之字符串操作/">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/03/16/2019-01-11-hello-github-pages/">
                 <i class="level-item fas fa-chevron-left"></i>
                 <span class="level-item"></span>
             </a>
         </div>
         
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/03/16/2018-02-19-charles连接手机抓包/">
+                <span class="level-item"></span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
         
     </div>
 </div>
@@ -709,7 +761,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="Hello World" height="28">
+                    <img src="/images/logo.svg" alt height="28">
                 
                 </a>
                 <p class="is-size-7">
