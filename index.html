@@ -135,113 +135,6 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-03-18T14:16:25.000Z">2019-03-18</time>
-                
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/03/18/test-md/">test.md</a>
-            
-        </h1>
-        <div class="content">
-            <h4 id="Mint-UI-踩坑之路"><a href="#Mint-UI-踩坑之路" class="headerlink" title="Mint UI 踩坑之路"></a>Mint UI 踩坑之路</h4><h5 id="1-Mint-UI-之-Cell-Swipe-用法"><a href="#1-Mint-UI-之-Cell-Swipe-用法" class="headerlink" title="1. Mint UI 之 Cell Swipe 用法"></a>1. Mint UI 之 Cell Swipe 用法</h5><blockquote>
-<p>官方API如: <a href="https://mint-ui.github.io/docs/#/en2/cell-swipe" target="_blank" rel="noopener">Mint UI 之 Cell Swipe</a></p>
-</blockquote>
-<ul>
-<li><p>Import</p>
-<pre><code>import { CellSwipe } from &apos;mint-ui&apos;
-
-Vue.component(CellSwipe.name, CellSwipe)
-</code></pre></li>
-<li><p>Example</p>
-<pre><code>&lt;mt-cell-swipe
-  title=&quot;text&quot;
-  :right=&quot;[
-    {
-      content: &apos;Delete&apos;,
-      style: { background: &apos;red&apos;, color: &apos;#fff&apos; },
-      handler: () =&gt; this.$messagebox(&apos;delete&apos;)
-    }
-  ]&quot;&gt;&lt;/mt-cell-swipe&gt;
-</code></pre></li>
-</ul>
-<blockquote>
-<p>注意：标签内 handler 中命名的方法，并不能满足我们的需求，可对其进行如下调整，在methods中自定义一个我们所需处理逻辑的方法</p>
-</blockquote>
-<pre><code>&lt;mt-cell-swipe
-  title=&quot;text&quot;
-  v-for=&quot;(item, index) in lists&quot;
-  :key=&quot;index&quot;
-  :right=&quot;[
-    {
-      content: &apos;Delete&apos;,
-      style: { background: &apos;red&apos;, color: &apos;#fff&apos; },
-      handler(){deleteItem(index)} // 1.如此修改此handler方法，会调用我们methods中自定义的方法，注：函数名不能命名为delete,严格模式下回报错
-    }
-  ]&quot;&gt;&lt;/mt-cell-swipe&gt;
-
-methods: {
-  deleteItem (index) {
-    // 2.封装自己处理删除单条数据的方法,index为对应item的索引值
-
-    console.log(`删除的为数组中的第${index}项`)
-  }
-}
-</code></pre><blockquote>
-<p>注意：handler(){ } 中的方法调用，不需要加 this</p>
-</blockquote>
-<h5 id="2-Mint-UI-之-Message-box-用法"><a href="#2-Mint-UI-之-Message-box-用法" class="headerlink" title="2. Mint UI 之 Message box 用法"></a>2. Mint UI 之 Message box 用法</h5><blockquote>
-<p>官方API如：<a href="https://mint-ui.github.io/docs/#/en2/message-box" target="_blank" rel="noopener">Mint UI 之 Message box</a></p>
-</blockquote>
-<ul>
-<li><p>Import</p>
-<pre><code>import { MessageBox } from &apos;mint-ui&apos;
-
-Vue.prototype.$messagebox = MessageBox
-</code></pre></li>
-<li><p>Example</p>
-<pre><code>this.$messagebox.confirm(&apos;&apos;, {
-    message: `是否确认删除${this.applyLists[index].name}模板？`,
-    title: &apos;&apos;,
-    confirmButtonText: &apos;确认&apos;,
-    cancelButtonText: &apos;取消&apos;,
-    className: &apos;myMessage&apos;
-  }).then(action =&gt; {
-    if (action === &apos;confirm&apos;) {
-      // 确认逻辑
-    }
-  }).catch(err =&gt; {
-    if (err === &apos;cancel&apos;) {
-      // 取消关闭
-    }
-  })
-</code></pre></li>
-</ul>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2019-03-17T11:13:13.000Z">2019-03-17</time>
                 
                 
@@ -372,94 +265,6 @@ server.listen(3000, function(){
 <p>服务端设置响应头 <code>Access-Control-Allow-Origin</code></p>
 <pre><code>Access-Control-Allow-Origin： http://api.bob.com； // 只允许http://api.bob.com跨域请求
 Access-Control-Allow-Origin： *；  // 所以的请求都允许跨域请求
-</code></pre>
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time>
-                
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2018/02/19/2018-02-19-常用代码片段/">常用js代码片段</a>
-            
-        </h1>
-        <div class="content">
-            <h4 id="常用js代码片段"><a href="#常用js代码片段" class="headerlink" title="常用js代码片段"></a>常用js代码片段</h4><h5 id="1-获取当前时间（年-月-日-时-分）"><a href="#1-获取当前时间（年-月-日-时-分）" class="headerlink" title="1.获取当前时间（年-月-日 时:分）"></a>1.获取当前时间（年-月-日 时:分）</h5><pre><code>module.exports = {
-    getNowTime (connector) { // connector 连接符，不传默认为 -
-        if (!connector) connector = &apos;-&apos;
-        const nowTime = new Date()
-        const nowMonth = nowTime.getMonth()+1 &lt; 10 ? &apos;0&apos; + (nowTime.getMonth()+1) : nowTime.getMonth() + 1
-        const nowDay = nowTime.getDay() &lt; 10 ? &apos;0&apos; + nowTime.getDay() : nowTime.getDay()
-        const nowHours = nowTime.getHours() &lt; 10 ? &apos;0&apos; + nowTime.getHours() : nowTime.getHours()
-        const nowMinute = nowTime.getMinutes() &lt; 10 ? &apos;0&apos; + nowTime.getMinutes() : nowTime.getMinutes()
-        return nowTime.getFullYear() + connector + nowMonth + connector + nowDay + &apos; &apos; + nowHours + &apos;:&apos; + nowMinute
-      }
-}
-
-// 获取结果为： 2018-02-12 17:08
-</code></pre><h5 id="2-向左滑动展示删除按钮功能"><a href="#2-向左滑动展示删除按钮功能" class="headerlink" title="2.向左滑动展示删除按钮功能"></a>2.向左滑动展示删除按钮功能</h5><pre><code>//向左滑动展示删除会议按钮
-function showDeleteWithSlide () {
-    var slideItem = $(&apos;.meetingList&apos;).find(&apos;ul&apos;);
-    var slideStartX=0, slideStartY=0, slideEndX=0, slideEndY=0, slideX=0, slideY=0;
-    slideItem.on(&apos;touchstart&apos;, function (e) {
-        e.stopPropagation();
-        slideStartX = e.changedTouches[0].clientX;
-        slideStartY = e.changedTouches[0].clientY;
-    });
-    slideItem.on(&apos;touchmove&apos;, function(e){
-        e.stopPropagation();
-        slideEndX = e.changedTouches[0].clientX;
-        slideEndY = e.changedTouches[0].clientY;
-        slideX = slideEndX - slideStartX;
-        slideY = slideEndY - slideStartY;
-        if(Math.abs(slideY) &gt;= Math.abs(slideX)) { //竖向滑动
-            slideItem.each(function(){
-                if($(this).hasClass(&apos;show-from-right&apos;)){
-                    $(this).removeClass(&apos;show-from-right&apos;).addClass(&apos;hide-to-right&apos;);
-                    if(&apos;meeting_type&apos; == $(this).children(&apos;li:last-child&apos;).attr(&apos;class&apos;) &amp;&amp; $(this).children(&apos;li:last-child&apos;).text()) $(this).children(&apos;li:last-child&apos;).show();
-                }
-            })
-            return; //竖向滑动释放默认行为
-        };
-        e.preventDefault();
-    });
-    slideItem.on(&apos;touchend&apos;, function(e){
-        e.stopPropagation();
-        if(slideX&lt;-50){
-            $(this).removeClass(&apos;hide-to-right&apos;).addClass(&apos;show-from-right&apos;);
-        }else if (slideX&gt;50) {
-            if($(this).hasClass(&apos;show-from-right&apos;)) $(this).removeClass(&apos;show-from-right&apos;).addClass(&apos;hide-to-right&apos;);
-        }
-
-        if(Math.abs(slideX)&gt;50 &amp;&amp; &apos;meeting_type&apos; == $(this).children(&apos;li:last-child&apos;).attr(&apos;class&apos;) &amp;&amp; &apos;show-from-right&apos; == $(this).attr(&apos;class&apos;)) {
-            $(this).children(&apos;li:last-child&apos;).hide();
-        }else if(Math.abs(slideX)&gt;50 &amp;&amp; &apos;meeting_type&apos; == $(this).children(&apos;li:last-child&apos;).attr(&apos;class&apos;) &amp;&amp; &apos;hide-to-right&apos; == $(this).attr(&apos;class&apos;) &amp;&amp; $(this).children(&apos;li:last-child&apos;).text()){
-            $(this).children(&apos;li:last-child&apos;).show();
-        };
-    })
-}
 </code></pre>
         </div>
         
@@ -649,6 +454,160 @@ Vue.prototype.$messagebox = MessageBox
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time>
+                
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/02/19/2018-02-19-常用代码片段/">常用js代码片段</a>
+            
+        </h1>
+        <div class="content">
+            <h4 id="常用js代码片段"><a href="#常用js代码片段" class="headerlink" title="常用js代码片段"></a>常用js代码片段</h4><h5 id="1-获取当前时间（年-月-日-时-分）"><a href="#1-获取当前时间（年-月-日-时-分）" class="headerlink" title="1.获取当前时间（年-月-日 时:分）"></a>1.获取当前时间（年-月-日 时:分）</h5><pre><code>module.exports = {
+    getNowTime (connector) { // connector 连接符，不传默认为 -
+        if (!connector) connector = &apos;-&apos;
+        const nowTime = new Date()
+        const nowMonth = nowTime.getMonth()+1 &lt; 10 ? &apos;0&apos; + (nowTime.getMonth()+1) : nowTime.getMonth() + 1
+        const nowDay = nowTime.getDay() &lt; 10 ? &apos;0&apos; + nowTime.getDay() : nowTime.getDay()
+        const nowHours = nowTime.getHours() &lt; 10 ? &apos;0&apos; + nowTime.getHours() : nowTime.getHours()
+        const nowMinute = nowTime.getMinutes() &lt; 10 ? &apos;0&apos; + nowTime.getMinutes() : nowTime.getMinutes()
+        return nowTime.getFullYear() + connector + nowMonth + connector + nowDay + &apos; &apos; + nowHours + &apos;:&apos; + nowMinute
+      }
+}
+
+// 获取结果为： 2018-02-12 17:08
+</code></pre><h5 id="2-向左滑动展示删除按钮功能"><a href="#2-向左滑动展示删除按钮功能" class="headerlink" title="2.向左滑动展示删除按钮功能"></a>2.向左滑动展示删除按钮功能</h5><pre><code>//向左滑动展示删除会议按钮
+function showDeleteWithSlide () {
+    var slideItem = $(&apos;.meetingList&apos;).find(&apos;ul&apos;);
+    var slideStartX=0, slideStartY=0, slideEndX=0, slideEndY=0, slideX=0, slideY=0;
+    slideItem.on(&apos;touchstart&apos;, function (e) {
+        e.stopPropagation();
+        slideStartX = e.changedTouches[0].clientX;
+        slideStartY = e.changedTouches[0].clientY;
+    });
+    slideItem.on(&apos;touchmove&apos;, function(e){
+        e.stopPropagation();
+        slideEndX = e.changedTouches[0].clientX;
+        slideEndY = e.changedTouches[0].clientY;
+        slideX = slideEndX - slideStartX;
+        slideY = slideEndY - slideStartY;
+        if(Math.abs(slideY) &gt;= Math.abs(slideX)) { //竖向滑动
+            slideItem.each(function(){
+                if($(this).hasClass(&apos;show-from-right&apos;)){
+                    $(this).removeClass(&apos;show-from-right&apos;).addClass(&apos;hide-to-right&apos;);
+                    if(&apos;meeting_type&apos; == $(this).children(&apos;li:last-child&apos;).attr(&apos;class&apos;) &amp;&amp; $(this).children(&apos;li:last-child&apos;).text()) $(this).children(&apos;li:last-child&apos;).show();
+                }
+            })
+            return; //竖向滑动释放默认行为
+        };
+        e.preventDefault();
+    });
+    slideItem.on(&apos;touchend&apos;, function(e){
+        e.stopPropagation();
+        if(slideX&lt;-50){
+            $(this).removeClass(&apos;hide-to-right&apos;).addClass(&apos;show-from-right&apos;);
+        }else if (slideX&gt;50) {
+            if($(this).hasClass(&apos;show-from-right&apos;)) $(this).removeClass(&apos;show-from-right&apos;).addClass(&apos;hide-to-right&apos;);
+        }
+
+        if(Math.abs(slideX)&gt;50 &amp;&amp; &apos;meeting_type&apos; == $(this).children(&apos;li:last-child&apos;).attr(&apos;class&apos;) &amp;&amp; &apos;show-from-right&apos; == $(this).attr(&apos;class&apos;)) {
+            $(this).children(&apos;li:last-child&apos;).hide();
+        }else if(Math.abs(slideX)&gt;50 &amp;&amp; &apos;meeting_type&apos; == $(this).children(&apos;li:last-child&apos;).attr(&apos;class&apos;) &amp;&amp; &apos;hide-to-right&apos; == $(this).attr(&apos;class&apos;) &amp;&amp; $(this).children(&apos;li:last-child&apos;).text()){
+            $(this).children(&apos;li:last-child&apos;).show();
+        };
+    })
+}
+</code></pre>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-02-12T11:13:13.000Z">2018-02-12</time>
+                
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/02/12/2018-02-12-vue学习笔记之如何发送get post jsonp请求/">vue发送get post jsonp请求</a>
+            
+        </h1>
+        <div class="content">
+            <h4 id="1-使用-vue-resource-发送get、-post、-jsonp请求"><a href="#1-使用-vue-resource-发送get、-post、-jsonp请求" class="headerlink" title="1. 使用 vue-resource 发送get、 post、 jsonp请求"></a>1. 使用 <a href="https://github.com/pagekit/vue-resource" target="_blank" rel="noopener">vue-resource</a> 发送get、 post、 jsonp请求</h4><blockquote>
+<p>官方已不再维护</p>
+</blockquote>
+<p><a href="https://github.com/typicode/json-server" target="_blank" rel="noopener">github提供的vue-ersource请求测试地址</a></p>
+<ul>
+<li><p>使用 vue-resource 发送 get 请求</p>
+<p>  this.$http.get(‘/someUrl’).then(response =&gt; {</p>
+<pre><code>// get body data
+console.log(response.body)
+</code></pre><p>  }, error =&gt; {</p>
+<pre><code>// error callback
+</code></pre><p>  })</p>
+</li>
+<li><p>使用 vue-resource 发送 post 请求</p>
+<p>  this.$http.post(‘/someUrl’, {body}, {config}).then(response =&gt; {</p>
+<pre><code>// 默认发起的 post 请求，默认没有表单格式，所以有的服务器处理不了
+// 通过查阅文档发现，通过 post 方法的第三个参数，{ emulateJSON：true }设置提交的内容为普通表单数据格式
+console.log(response.body)
+</code></pre><p>  }, error =&gt; {</p>
+<pre><code>// error callback
+</code></pre><p>  })</p>
+</li>
+</ul>
+<ul>
+<li><p>使用 vue-resource 发送 jsonp 请求</p>
+<p>  this.$http.jsonp(‘/someUrl’, {config}).then(response =&gt; {</p>
+<pre><code>console.log(response.body)
+</code></pre><p>  }, error =&gt; {</p>
+<pre><code>// error callback
+</code></pre><p>  })</p>
+</li>
+</ul>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2018-02-12T11:13:13.000Z">2018-02-12</time>
                 
                 
@@ -663,6 +622,85 @@ Vue.prototype.$messagebox = MessageBox
         </h1>
         <div class="content">
             <h4 id="vue过渡类名实现动画"><a href="#vue过渡类名实现动画" class="headerlink" title="vue过渡类名实现动画"></a>vue过渡类名实现动画</h4><p><a href="https://cn.vuejs.org/v2/guide/transitions.html" target="_blank" rel="noopener">进入/离开 &amp; 列表过渡</a></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-02-12T11:13:13.000Z">2018-02-12</time>
+                
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/02/12/2018-02-12-vue学习笔记之生命周期钩子函数/">vue生命周期</a>
+            
+        </h1>
+        <div class="content">
+            <h4 id="vue生命周期"><a href="#vue生命周期" class="headerlink" title="vue生命周期"></a>vue生命周期</h4><p><a href="https://cn.vuejs.org/v2/guide/instance.html#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%9B%BE%E7%A4%BA" target="_blank" rel="noopener">生命周期图示</a>:</p>
+<ol>
+<li><p>vue实例创建阶段的四个函数</p>
+<pre><code>beforeCreated () {
+    // 此函数表示实例完全被创建出来之前，会执行它
+    // 注意： 在此生命周期函数执行的时候，data和methods中的数据还没有被初始化，故不能调用对data中的数据进行修改及调用methods中的方法
+}
+
+created () {
+    // 在此生命周期函数执行时，data和methods都已经初始化好了
+    // 如果要调用 methods 中的方法，或者操作 data 中的数据，最早也只能在此函数中进行操作
+}
+
+beforeMount () {
+    // 此函数表明，模板已经在内存中编辑完成了，但是尚未挂载到页面中
+    // 在此函数执行的时候，页面中的元素，还没有被真正的渲染
+}
+
+mounted () {
+    // 此函数表示，内存中的数据，已经真实的挂载到了页面中，用户已经可以看到真实的渲染好的页面了
+    // mounted是实例创建期间的最后一个生命周期函数，当执行完 mounted 就表示，实例已经被完全创建好了，此时，如果没有其它操作的话，这个实例，就静静的躺在内存中，一动不动
+    // 此时，组件已经脱离了创建阶段，进入到运行阶段
+}
+</code></pre></li>
+<li><p>vue实例运行时的函数</p>
+<pre><code>beforeUpdate () {
+    // 当 data 中的数据发生变化时，会执行此函数，当执行此函数时，页面中显示的数据，依然是 data 更新之前的旧数据，但 data 在内存中的数据已经是最新的了，页面尚未和最新的数据保持同步
+}
+
+updated () {
+    // 此时页面和 data 数据已经保持同步了
+}
+</code></pre></li>
+<li><p>vue实例销毁时的函数</p>
+<pre><code>beforeDestory () {
+    // 当执行此函数时，就表示Vue实例已经从运行阶段，进入到销毁阶段，
+    // 当执行此函数时，实例上data中所有的数据和methods中的方法，一级指令，过滤器...都处于可用状态，还没有这正执行销毁过程
+    // 此方法中，一般做一些诸如定时器等的销毁收尾工作
+}
+
+destoryed () {
+    // 当执行此函数时，组件已经被完全销毁了，此时，组件中所有的数据，方法，指令，过滤器...都已经不可用了
+}
+</code></pre></li>
+</ol>
 
         </div>
         
@@ -855,85 +893,6 @@ directives: {
 
 
 
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-02-12T11:13:13.000Z">2018-02-12</time>
-                
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2018/02/12/2018-02-12-vue学习笔记之生命周期钩子函数/">vue生命周期</a>
-            
-        </h1>
-        <div class="content">
-            <h4 id="vue生命周期"><a href="#vue生命周期" class="headerlink" title="vue生命周期"></a>vue生命周期</h4><p><a href="https://cn.vuejs.org/v2/guide/instance.html#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%9B%BE%E7%A4%BA" target="_blank" rel="noopener">生命周期图示</a>:</p>
-<ol>
-<li><p>vue实例创建阶段的四个函数</p>
-<pre><code>beforeCreated () {
-    // 此函数表示实例完全被创建出来之前，会执行它
-    // 注意： 在此生命周期函数执行的时候，data和methods中的数据还没有被初始化，故不能调用对data中的数据进行修改及调用methods中的方法
-}
-
-created () {
-    // 在此生命周期函数执行时，data和methods都已经初始化好了
-    // 如果要调用 methods 中的方法，或者操作 data 中的数据，最早也只能在此函数中进行操作
-}
-
-beforeMount () {
-    // 此函数表明，模板已经在内存中编辑完成了，但是尚未挂载到页面中
-    // 在此函数执行的时候，页面中的元素，还没有被真正的渲染
-}
-
-mounted () {
-    // 此函数表示，内存中的数据，已经真实的挂载到了页面中，用户已经可以看到真实的渲染好的页面了
-    // mounted是实例创建期间的最后一个生命周期函数，当执行完 mounted 就表示，实例已经被完全创建好了，此时，如果没有其它操作的话，这个实例，就静静的躺在内存中，一动不动
-    // 此时，组件已经脱离了创建阶段，进入到运行阶段
-}
-</code></pre></li>
-<li><p>vue实例运行时的函数</p>
-<pre><code>beforeUpdate () {
-    // 当 data 中的数据发生变化时，会执行此函数，当执行此函数时，页面中显示的数据，依然是 data 更新之前的旧数据，但 data 在内存中的数据已经是最新的了，页面尚未和最新的数据保持同步
-}
-
-updated () {
-    // 此时页面和 data 数据已经保持同步了
-}
-</code></pre></li>
-<li><p>vue实例销毁时的函数</p>
-<pre><code>beforeDestory () {
-    // 当执行此函数时，就表示Vue实例已经从运行阶段，进入到销毁阶段，
-    // 当执行此函数时，实例上data中所有的数据和methods中的方法，一级指令，过滤器...都处于可用状态，还没有这正执行销毁过程
-    // 此方法中，一般做一些诸如定时器等的销毁收尾工作
-}
-
-destoryed () {
-    // 当执行此函数时，组件已经被完全销毁了，此时，组件中所有的数据，方法，指令，过滤器...都已经不可用了
-}
-</code></pre></li>
-</ol>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -996,7 +955,7 @@ destoryed () {
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        14
+                        13
                     </p>
                 </div>
             </div>
@@ -1110,19 +1069,6 @@ destoryed () {
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-18T14:16:25.000Z">2019-03-18</time></div>
-                    <a href="/2019/03/18/test-md/" class="has-link-black-ter is-size-6">test.md</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <div class="media-content">
-                <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-17T11:13:13.000Z">2019-03-17</time></div>
                     <a href="/2019/03/17/2019-03-17-hello-md/" class="has-link-black-ter is-size-6">hello</a>
                     <p class="is-size-7 is-uppercase">
@@ -1150,7 +1096,7 @@ destoryed () {
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
-                    <a href="/2018/02/19/2018-02-19-常用代码片段/" class="has-link-black-ter is-size-6">常用js代码片段</a>
+                    <a href="/2018/02/19/2018-02-19-Mint UI踩坑之路/" class="has-link-black-ter is-size-6">Mint UI 踩坑之路</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1163,7 +1109,20 @@ destoryed () {
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
-                    <a href="/2018/02/19/2018-02-19-Mint UI踩坑之路/" class="has-link-black-ter is-size-6">Mint UI 踩坑之路</a>
+                    <a href="/2018/02/19/2018-02-19-charles连接手机抓包/" class="has-link-black-ter is-size-6">charles连接手机抓包</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
+                    <a href="/2018/02/19/2018-02-19-常用代码片段/" class="has-link-black-ter is-size-6">常用js代码片段</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1189,7 +1148,7 @@ destoryed () {
                     <span class="level-item">March 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">1</span>
                 </span>
             </a>
         </li>
@@ -1306,19 +1265,6 @@ destoryed () {
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-18T14:16:25.000Z">2019-03-18</time></div>
-                    <a href="/2019/03/18/test-md/" class="has-link-black-ter is-size-6">test.md</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <div class="media-content">
-                <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-17T11:13:13.000Z">2019-03-17</time></div>
                     <a href="/2019/03/17/2019-03-17-hello-md/" class="has-link-black-ter is-size-6">hello</a>
                     <p class="is-size-7 is-uppercase">
@@ -1346,7 +1292,7 @@ destoryed () {
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
-                    <a href="/2018/02/19/2018-02-19-常用代码片段/" class="has-link-black-ter is-size-6">常用js代码片段</a>
+                    <a href="/2018/02/19/2018-02-19-Mint UI踩坑之路/" class="has-link-black-ter is-size-6">Mint UI 踩坑之路</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1359,7 +1305,20 @@ destoryed () {
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
-                    <a href="/2018/02/19/2018-02-19-Mint UI踩坑之路/" class="has-link-black-ter is-size-6">Mint UI 踩坑之路</a>
+                    <a href="/2018/02/19/2018-02-19-charles连接手机抓包/" class="has-link-black-ter is-size-6">charles连接手机抓包</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
+                    <a href="/2018/02/19/2018-02-19-常用代码片段/" class="has-link-black-ter is-size-6">常用js代码片段</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1385,7 +1344,7 @@ destoryed () {
                     <span class="level-item">March 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">1</span>
                 </span>
             </a>
         </li>
