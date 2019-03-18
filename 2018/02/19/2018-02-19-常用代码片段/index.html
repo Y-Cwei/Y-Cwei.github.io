@@ -2,18 +2,23 @@
 <html>
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Archives: 2019 - Y-Cwei</title>
+<title>常用js代码片段 - Y-Cwei</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Y-Cwei">
-<meta property="og:url" content="http://yoursite.com/archives/2019/index.html">
+    <meta name="description" content="常用js代码片段1.获取当前时间（年-月-日 时:分）module.exports = {     getNowTime (connector) { // connector 连接符，不传默认为 -         if (!connector) connector = &amp;apos;-&amp;apos;         const nowTime = new Date()         const n">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用js代码片段">
+<meta property="og:url" content="http://yoursite.com/2018/02/19/2018-02-19-常用代码片段/index.html">
 <meta property="og:site_name" content="Y-Cwei">
+<meta property="og:description" content="常用js代码片段1.获取当前时间（年-月-日 时:分）module.exports = {     getNowTime (connector) { // connector 连接符，不传默认为 -         if (!connector) connector = &amp;apos;-&amp;apos;         const nowTime = new Date()         const n">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-18T14:26:35.397Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Y-Cwei">
+<meta name="twitter:title" content="常用js代码片段">
+<meta name="twitter:description" content="常用js代码片段1.获取当前时间（年-月-日 时:分）module.exports = {     getNowTime (connector) { // connector 连接符，不传默认为 -         if (!connector) connector = &amp;apos;-&amp;apos;         const nowTime = new Date()         const n">
 
 
 
@@ -85,7 +90,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo_title.png" alt="Y-Cwei" height="28">
+                <img src="/images/logo_title.png" alt="常用js代码片段" height="28">
             
             </a>
         </div>
@@ -128,61 +133,152 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
-
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="tag is-link">
-        2019
-        </h3>
-        <div class="timeline">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
         
-            <article class="media">
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time>
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-03-18T14:16:25.000Z">2019-03-18</time>
-                        <a href="/2019/03/18/test-md/" class="has-link-black-ter is-size-6">test.md</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-03-17T11:13:13.000Z">2019-03-17</time>
-                        <a href="/2019/03/17/2019-03-17-hello-md/" class="has-link-black-ter is-size-6">hello</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-01-11T11:13:13.000Z">2019-01-11</time>
-                        <a href="/2019/01/11/2019-01-11-前后端交互之跨域问题-md/" class="has-link-black-ter is-size-6">前后端交互之跨域问题</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
+            </div>
         </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                常用js代码片段
+            
+        </h1>
+        <div class="content">
+            <h4 id="常用js代码片段"><a href="#常用js代码片段" class="headerlink" title="常用js代码片段"></a>常用js代码片段</h4><h5 id="1-获取当前时间（年-月-日-时-分）"><a href="#1-获取当前时间（年-月-日-时-分）" class="headerlink" title="1.获取当前时间（年-月-日 时:分）"></a>1.获取当前时间（年-月-日 时:分）</h5><pre><code>module.exports = {
+    getNowTime (connector) { // connector 连接符，不传默认为 -
+        if (!connector) connector = &apos;-&apos;
+        const nowTime = new Date()
+        const nowMonth = nowTime.getMonth()+1 &lt; 10 ? &apos;0&apos; + (nowTime.getMonth()+1) : nowTime.getMonth() + 1
+        const nowDay = nowTime.getDay() &lt; 10 ? &apos;0&apos; + nowTime.getDay() : nowTime.getDay()
+        const nowHours = nowTime.getHours() &lt; 10 ? &apos;0&apos; + nowTime.getHours() : nowTime.getHours()
+        const nowMinute = nowTime.getMinutes() &lt; 10 ? &apos;0&apos; + nowTime.getMinutes() : nowTime.getMinutes()
+        return nowTime.getFullYear() + connector + nowMonth + connector + nowDay + &apos; &apos; + nowHours + &apos;:&apos; + nowMinute
+      }
+}
+
+// 获取结果为： 2018-02-12 17:08
+</code></pre><h5 id="2-向左滑动展示删除按钮功能"><a href="#2-向左滑动展示删除按钮功能" class="headerlink" title="2.向左滑动展示删除按钮功能"></a>2.向左滑动展示删除按钮功能</h5><pre><code>//向左滑动展示删除会议按钮
+function showDeleteWithSlide () {
+    var slideItem = $(&apos;.meetingList&apos;).find(&apos;ul&apos;);
+    var slideStartX=0, slideStartY=0, slideEndX=0, slideEndY=0, slideX=0, slideY=0;
+    slideItem.on(&apos;touchstart&apos;, function (e) {
+        e.stopPropagation();
+        slideStartX = e.changedTouches[0].clientX;
+        slideStartY = e.changedTouches[0].clientY;
+    });
+    slideItem.on(&apos;touchmove&apos;, function(e){
+        e.stopPropagation();
+        slideEndX = e.changedTouches[0].clientX;
+        slideEndY = e.changedTouches[0].clientY;
+        slideX = slideEndX - slideStartX;
+        slideY = slideEndY - slideStartY;
+        if(Math.abs(slideY) &gt;= Math.abs(slideX)) { //竖向滑动
+            slideItem.each(function(){
+                if($(this).hasClass(&apos;show-from-right&apos;)){
+                    $(this).removeClass(&apos;show-from-right&apos;).addClass(&apos;hide-to-right&apos;);
+                    if(&apos;meeting_type&apos; == $(this).children(&apos;li:last-child&apos;).attr(&apos;class&apos;) &amp;&amp; $(this).children(&apos;li:last-child&apos;).text()) $(this).children(&apos;li:last-child&apos;).show();
+                }
+            })
+            return; //竖向滑动释放默认行为
+        };
+        e.preventDefault();
+    });
+    slideItem.on(&apos;touchend&apos;, function(e){
+        e.stopPropagation();
+        if(slideX&lt;-50){
+            $(this).removeClass(&apos;hide-to-right&apos;).addClass(&apos;show-from-right&apos;);
+        }else if (slideX&gt;50) {
+            if($(this).hasClass(&apos;show-from-right&apos;)) $(this).removeClass(&apos;show-from-right&apos;).addClass(&apos;hide-to-right&apos;);
+        }
+
+        if(Math.abs(slideX)&gt;50 &amp;&amp; &apos;meeting_type&apos; == $(this).children(&apos;li:last-child&apos;).attr(&apos;class&apos;) &amp;&amp; &apos;show-from-right&apos; == $(this).attr(&apos;class&apos;)) {
+            $(this).children(&apos;li:last-child&apos;).hide();
+        }else if(Math.abs(slideX)&gt;50 &amp;&amp; &apos;meeting_type&apos; == $(this).children(&apos;li:last-child&apos;).attr(&apos;class&apos;) &amp;&amp; &apos;hide-to-right&apos; == $(this).attr(&apos;class&apos;) &amp;&amp; $(this).children(&apos;li:last-child&apos;).text()){
+            $(this).children(&apos;li:last-child&apos;).show();
+        };
+    })
+}
+</code></pre>
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/js/">js</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
+        <div class="buttons is-centered">
+            
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
+
+<div class="notification is-danger">
+    You forgot to set the <code>business</code> and <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>url</code> Patreon. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/01/11/2019-01-11-前后端交互之跨域问题-md/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">前后端交互之跨域问题</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2018/02/19/2018-02-19-Mint UI踩坑之路/">
+                <span class="level-item">Mint UI 踩坑之路</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
     </div>
 </div>
 
@@ -726,7 +822,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo_title.png" alt="Y-Cwei" height="28">
+                    <img src="/images/logo_title.png" alt="常用js代码片段" height="28">
                 
                 </a>
                 <p class="is-size-7">

@@ -2,14 +2,14 @@
 <html>
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Y-Cwei</title>
+<title>Tag: js - Y-Cwei</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
     <meta property="og:type" content="website">
 <meta property="og:title" content="Y-Cwei">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:url" content="http://yoursite.com/tags/js/index.html">
 <meta property="og:site_name" content="Y-Cwei">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
@@ -128,14 +128,24 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    <div class="card-content">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/tags">Tags</a></li>
+            <li class="is-active"><a href="#" aria-current="page">js</a></li>
+        </ul>
+        </nav>
+    </div>
+</div>
+
     <div class="card">
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-02-12T11:13:13.000Z">2018-02-12</time>
+                <time class="level-item has-text-grey" datetime="2019-01-11T11:13:13.000Z">2019-01-11</time>
                 
                 
                 
@@ -144,43 +154,182 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2018/02/12/2018-02-12-vue学习笔记之如何发送get post jsonp请求/">vue发送get post jsonp请求</a>
+                <a class="has-link-black-ter" href="/2019/01/11/2019-01-11-前后端交互之跨域问题-md/">前后端交互之跨域问题</a>
             
         </h1>
         <div class="content">
-            <h4 id="1-使用-vue-resource-发送get、-post、-jsonp请求"><a href="#1-使用-vue-resource-发送get、-post、-jsonp请求" class="headerlink" title="1. 使用 vue-resource 发送get、 post、 jsonp请求"></a>1. 使用 <a href="https://github.com/pagekit/vue-resource" target="_blank" rel="noopener">vue-resource</a> 发送get、 post、 jsonp请求</h4><blockquote>
-<p>官方已不再维护</p>
+            <h4 id="前后端交互之跨域问题"><a href="#前后端交互之跨域问题" class="headerlink" title="前后端交互之跨域问题"></a>前后端交互之跨域问题</h4><p>跨域出现的原因：浏览器为安全性考虑而实施的同源策略    ，当协议名，域名，端口号三者中任一一种不相同，就会产生跨域问题。</p>
+<h5 id="1-jsonp解决跨域"><a href="#1-jsonp解决跨域" class="headerlink" title="1. jsonp解决跨域"></a>1. jsonp解决跨域</h5><blockquote>
+<p>在 HTML 标签里，一些诸如 script、img 这样的资源的标签是没有跨域限制的，我们利用这一点，绕过 ajax 引擎，从而解决跨域请求</p>
 </blockquote>
-<p><a href="https://github.com/typicode/json-server" target="_blank" rel="noopener">github提供的vue-ersource请求测试地址</a></p>
 <ul>
-<li><p>使用 vue-resource 发送 get 请求</p>
-<p>  this.$http.get(‘/someUrl’).then(response =&gt; {</p>
-<pre><code>// get body data
-console.log(response.body)
-</code></pre><p>  }, error =&gt; {</p>
-<pre><code>// error callback
-</code></pre><p>  })</p>
-</li>
-<li><p>使用 vue-resource 发送 post 请求</p>
-<p>  this.$http.post(‘/someUrl’, {body}, {config}).then(response =&gt; {</p>
-<pre><code>// 默认发起的 post 请求，默认没有表单格式，所以有的服务器处理不了
-// 通过查阅文档发现，通过 post 方法的第三个参数，{ emulateJSON：true }设置提交的内容为普通表单数据格式
-console.log(response.body)
-</code></pre><p>  }, error =&gt; {</p>
-<pre><code>// error callback
-</code></pre><p>  })</p>
-</li>
-</ul>
-<ul>
-<li><p>使用 vue-resource 发送 jsonp 请求</p>
-<p>  this.$http.jsonp(‘/someUrl’, {config}).then(response =&gt; {</p>
-<pre><code>console.log(response.body)
-</code></pre><p>  }, error =&gt; {</p>
-<pre><code>// error callback
-</code></pre><p>  })</p>
-</li>
-</ul>
+<li><p>使用 node.js 建立服务</p>
+<pre><code>const http = require(&apos;http&apos;); // 导入http内置模块
 
+const server = http.createServer() // 创建一个http服务
+
+server.on(&apos;request&apos;, function(req, res){ // 监听http服务器的request请求
+    const url = req.url  // 获取请求的url
+    if (url === &apos;/xxxxxx&apos;) {
+        var scriptStr = &apos;show()&apos;;  // 拼接一个合法的js脚本(前端事先声明好的方法的调用)
+        res.end(scriptStr)；  // res.end发送给客户端，客户端去把这个字符串，当作js代码去解析执行
+    } else {
+        res.end(&apos;404 Not Found!&apos;)；
+    }
+})
+
+server.listen(3000, function(){ // 指定端口号并启动服务器监听
+    console.log(&apos;server listen at http://127.0.0.1:3000&apos;)；
+})
+</code></pre></li>
+<li><p>前端书写规范</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    function show (data) { // 事先声明好一个处理请求的回调函数，供服务器触发
+        // 处理请求的逻辑
+        console.log(data)
+    }
+&lt;/script&gt;
+
+&lt;script src=&quot;http://127.0.0.1:3000/xxxxxx&quot;&gt;&lt;/script&gt;
+</code></pre></li>
+</ul>
+<blockquote>
+<p>注意：以上方法，写死了show()方法，不能动态处理请求，升级改造如下：</p>
+</blockquote>
+<ul>
+<li><p>node.js服务升级</p>
+<pre><code>const http = require(&apos;http&apos;);
+
+const urlModule = require(&apos;url&apos;);  // 引入url模块，这个模块能够帮我们解析URL地址，从而拿到 pathname,query
+
+const server = http.createServer();  
+
+server.on(&apos;request&apos;, function(req, res){
+    // const url = req.url;
+    // const { pathname, query } = urlModule.parse(req.url, true); // 获取请求的url
+    const { pathname: url, query } = urlModule.parse(req.url, true); // 获取请求的url,并将pathname重命名为url
+
+    if (url === &apos;/xxxxxx&apos;) {
+        var resData = { // 新增数据对象
+            name: &apos;xxx&apos;,
+            age: 18
+        }
+        // var scriptStr = &apos;show()&apos;;
+        var scriptStr = `${query.callback}(${JSON.stringify(resData)})`; // 修改返回值,query.callback就能取到前端callbak对应的函数名
+        res.end(scriptStr)；
+    } else {
+        res.end(&apos;404 Not Found!&apos;)；
+    }
+})
+
+server.listen(3000, function(){
+    console.log(&apos;server listen at http://127.0.0.1:3000&apos;)；
+})
+</code></pre></li>
+<li><p>前端编码升级</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    function showInfo (data) { // 事先声明好一个处理请求的回调函数，供服务器触发
+        // 处理请求的逻辑
+        console.log(data)
+    }
+&lt;/script&gt;
+
+&lt;script src=&quot;http://127.0.0.1:3000/xxxxxx?callback=showInfo&quot;&gt;&lt;/script&gt;
+</code></pre></li>
+</ul>
+<h5 id="2-CORS解决跨域"><a href="#2-CORS解决跨域" class="headerlink" title="2. CORS解决跨域"></a>2. CORS解决跨域</h5><p>详解可参考阮一峰的 <a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解</a></p>
+<p>服务端设置响应头 <code>Access-Control-Allow-Origin</code></p>
+<pre><code>Access-Control-Allow-Origin： http://api.bob.com； // 只允许http://api.bob.com跨域请求
+Access-Control-Allow-Origin： *；  // 所以的请求都允许跨域请求
+</code></pre>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time>
+                
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/02/19/2018-02-19-常用代码片段/">常用js代码片段</a>
+            
+        </h1>
+        <div class="content">
+            <h4 id="常用js代码片段"><a href="#常用js代码片段" class="headerlink" title="常用js代码片段"></a>常用js代码片段</h4><h5 id="1-获取当前时间（年-月-日-时-分）"><a href="#1-获取当前时间（年-月-日-时-分）" class="headerlink" title="1.获取当前时间（年-月-日 时:分）"></a>1.获取当前时间（年-月-日 时:分）</h5><pre><code>module.exports = {
+    getNowTime (connector) { // connector 连接符，不传默认为 -
+        if (!connector) connector = &apos;-&apos;
+        const nowTime = new Date()
+        const nowMonth = nowTime.getMonth()+1 &lt; 10 ? &apos;0&apos; + (nowTime.getMonth()+1) : nowTime.getMonth() + 1
+        const nowDay = nowTime.getDay() &lt; 10 ? &apos;0&apos; + nowTime.getDay() : nowTime.getDay()
+        const nowHours = nowTime.getHours() &lt; 10 ? &apos;0&apos; + nowTime.getHours() : nowTime.getHours()
+        const nowMinute = nowTime.getMinutes() &lt; 10 ? &apos;0&apos; + nowTime.getMinutes() : nowTime.getMinutes()
+        return nowTime.getFullYear() + connector + nowMonth + connector + nowDay + &apos; &apos; + nowHours + &apos;:&apos; + nowMinute
+      }
+}
+
+// 获取结果为： 2018-02-12 17:08
+</code></pre><h5 id="2-向左滑动展示删除按钮功能"><a href="#2-向左滑动展示删除按钮功能" class="headerlink" title="2.向左滑动展示删除按钮功能"></a>2.向左滑动展示删除按钮功能</h5><pre><code>//向左滑动展示删除会议按钮
+function showDeleteWithSlide () {
+    var slideItem = $(&apos;.meetingList&apos;).find(&apos;ul&apos;);
+    var slideStartX=0, slideStartY=0, slideEndX=0, slideEndY=0, slideX=0, slideY=0;
+    slideItem.on(&apos;touchstart&apos;, function (e) {
+        e.stopPropagation();
+        slideStartX = e.changedTouches[0].clientX;
+        slideStartY = e.changedTouches[0].clientY;
+    });
+    slideItem.on(&apos;touchmove&apos;, function(e){
+        e.stopPropagation();
+        slideEndX = e.changedTouches[0].clientX;
+        slideEndY = e.changedTouches[0].clientY;
+        slideX = slideEndX - slideStartX;
+        slideY = slideEndY - slideStartY;
+        if(Math.abs(slideY) &gt;= Math.abs(slideX)) { //竖向滑动
+            slideItem.each(function(){
+                if($(this).hasClass(&apos;show-from-right&apos;)){
+                    $(this).removeClass(&apos;show-from-right&apos;).addClass(&apos;hide-to-right&apos;);
+                    if(&apos;meeting_type&apos; == $(this).children(&apos;li:last-child&apos;).attr(&apos;class&apos;) &amp;&amp; $(this).children(&apos;li:last-child&apos;).text()) $(this).children(&apos;li:last-child&apos;).show();
+                }
+            })
+            return; //竖向滑动释放默认行为
+        };
+        e.preventDefault();
+    });
+    slideItem.on(&apos;touchend&apos;, function(e){
+        e.stopPropagation();
+        if(slideX&lt;-50){
+            $(this).removeClass(&apos;hide-to-right&apos;).addClass(&apos;show-from-right&apos;);
+        }else if (slideX&gt;50) {
+            if($(this).hasClass(&apos;show-from-right&apos;)) $(this).removeClass(&apos;show-from-right&apos;).addClass(&apos;hide-to-right&apos;);
+        }
+
+        if(Math.abs(slideX)&gt;50 &amp;&amp; &apos;meeting_type&apos; == $(this).children(&apos;li:last-child&apos;).attr(&apos;class&apos;) &amp;&amp; &apos;show-from-right&apos; == $(this).attr(&apos;class&apos;)) {
+            $(this).children(&apos;li:last-child&apos;).hide();
+        }else if(Math.abs(slideX)&gt;50 &amp;&amp; &apos;meeting_type&apos; == $(this).children(&apos;li:last-child&apos;).attr(&apos;class&apos;) &amp;&amp; &apos;hide-to-right&apos; == $(this).attr(&apos;class&apos;) &amp;&amp; $(this).children(&apos;li:last-child&apos;).text()){
+            $(this).children(&apos;li:last-child&apos;).show();
+        };
+    })
+}
+</code></pre>
         </div>
         
         
@@ -623,25 +772,6 @@ console.log(!someResult2 ? &apos;someArr2的每一项均为基数&apos; : &apos;
 
 
 
-
-    
-<div class="card card-transparent">
-    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-        <div class="pagination-previous">
-            <a class="is-flex-grow has-text-black-ter" href="/">Previous</a>
-        </div>
-        <div class="pagination-next is-invisible is-hidden-mobile">
-            <a class="is-flex-grow has-text-black-ter" href="/page/3/">Next</a>
-        </div>
-        <ul class="pagination-list is-hidden-mobile">
-            
-            <li><a class="pagination-link has-text-black-ter" href="/">1</a></li>
-            
-            <li><a class="pagination-link is-current" href="/page/2/">2</a></li>
-            
-        </ul>
-    </nav>
-</div>
 </div>
                 
 

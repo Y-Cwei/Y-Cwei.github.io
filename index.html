@@ -2,24 +2,24 @@
 <html>
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Hexo</title>
+<title>Y-Cwei</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
     <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="Y-Cwei">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="Y-Cwei">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="Y-Cwei">
 
 
 
 
 
-<link rel="icon" href="/images/favicon.svg">
+<link rel="icon" href="/images/logo.png">
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
@@ -85,7 +85,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="Hexo" height="28">
+                <img src="/images/logo_title.png" alt="Y-Cwei" height="28">
             
             </a>
         </div>
@@ -100,8 +100,6 @@
                 <a class="navbar-item" href="/categories">Categories</a>
                 
                 <a class="navbar-item" href="/tags">Tags</a>
-                
-                <a class="navbar-item" href="/about">About</a>
                 
             </div>
             
@@ -137,6 +135,113 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-03-18T14:16:25.000Z">2019-03-18</time>
+                
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/03/18/test-md/">test.md</a>
+            
+        </h1>
+        <div class="content">
+            <h4 id="Mint-UI-踩坑之路"><a href="#Mint-UI-踩坑之路" class="headerlink" title="Mint UI 踩坑之路"></a>Mint UI 踩坑之路</h4><h5 id="1-Mint-UI-之-Cell-Swipe-用法"><a href="#1-Mint-UI-之-Cell-Swipe-用法" class="headerlink" title="1. Mint UI 之 Cell Swipe 用法"></a>1. Mint UI 之 Cell Swipe 用法</h5><blockquote>
+<p>官方API如: <a href="https://mint-ui.github.io/docs/#/en2/cell-swipe" target="_blank" rel="noopener">Mint UI 之 Cell Swipe</a></p>
+</blockquote>
+<ul>
+<li><p>Import</p>
+<pre><code>import { CellSwipe } from &apos;mint-ui&apos;
+
+Vue.component(CellSwipe.name, CellSwipe)
+</code></pre></li>
+<li><p>Example</p>
+<pre><code>&lt;mt-cell-swipe
+  title=&quot;text&quot;
+  :right=&quot;[
+    {
+      content: &apos;Delete&apos;,
+      style: { background: &apos;red&apos;, color: &apos;#fff&apos; },
+      handler: () =&gt; this.$messagebox(&apos;delete&apos;)
+    }
+  ]&quot;&gt;&lt;/mt-cell-swipe&gt;
+</code></pre></li>
+</ul>
+<blockquote>
+<p>注意：标签内 handler 中命名的方法，并不能满足我们的需求，可对其进行如下调整，在methods中自定义一个我们所需处理逻辑的方法</p>
+</blockquote>
+<pre><code>&lt;mt-cell-swipe
+  title=&quot;text&quot;
+  v-for=&quot;(item, index) in lists&quot;
+  :key=&quot;index&quot;
+  :right=&quot;[
+    {
+      content: &apos;Delete&apos;,
+      style: { background: &apos;red&apos;, color: &apos;#fff&apos; },
+      handler(){deleteItem(index)} // 1.如此修改此handler方法，会调用我们methods中自定义的方法，注：函数名不能命名为delete,严格模式下回报错
+    }
+  ]&quot;&gt;&lt;/mt-cell-swipe&gt;
+
+methods: {
+  deleteItem (index) {
+    // 2.封装自己处理删除单条数据的方法,index为对应item的索引值
+
+    console.log(`删除的为数组中的第${index}项`)
+  }
+}
+</code></pre><blockquote>
+<p>注意：handler(){ } 中的方法调用，不需要加 this</p>
+</blockquote>
+<h5 id="2-Mint-UI-之-Message-box-用法"><a href="#2-Mint-UI-之-Message-box-用法" class="headerlink" title="2. Mint UI 之 Message box 用法"></a>2. Mint UI 之 Message box 用法</h5><blockquote>
+<p>官方API如：<a href="https://mint-ui.github.io/docs/#/en2/message-box" target="_blank" rel="noopener">Mint UI 之 Message box</a></p>
+</blockquote>
+<ul>
+<li><p>Import</p>
+<pre><code>import { MessageBox } from &apos;mint-ui&apos;
+
+Vue.prototype.$messagebox = MessageBox
+</code></pre></li>
+<li><p>Example</p>
+<pre><code>this.$messagebox.confirm(&apos;&apos;, {
+    message: `是否确认删除${this.applyLists[index].name}模板？`,
+    title: &apos;&apos;,
+    confirmButtonText: &apos;确认&apos;,
+    cancelButtonText: &apos;取消&apos;,
+    className: &apos;myMessage&apos;
+  }).then(action =&gt; {
+    if (action === &apos;confirm&apos;) {
+      // 确认逻辑
+    }
+  }).catch(err =&gt; {
+    if (err === &apos;cancel&apos;) {
+      // 取消关闭
+    }
+  })
+</code></pre></li>
+</ul>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2019-03-17T11:13:13.000Z">2019-03-17</time>
                 
                 
@@ -146,7 +251,7 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/03/17/2019-03-17-hello-md/">2019-03-17-hello.md</a>
+                <a class="has-link-black-ter" href="/2019/03/17/2019-03-17-hello-md/">hello</a>
             
         </h1>
         <div class="content">
@@ -171,7 +276,7 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-03-16T08:11:52.303Z">2019-03-16</time>
+                <time class="level-item has-text-grey" datetime="2019-01-11T11:13:13.000Z">2019-01-11</time>
                 
                 
                 
@@ -180,50 +285,7 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/03/16/hello-world/">Hello World</a>
-            
-        </h1>
-        <div class="content">
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="hljs-string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-01-10T16:00:00.000Z">2019-01-11</time>
-                
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/01/11/前后端交互之跨域问题/"></a>
+                <a class="has-link-black-ter" href="/2019/01/11/2019-01-11-前后端交互之跨域问题-md/">前后端交互之跨域问题</a>
             
         </h1>
         <div class="content">
@@ -331,7 +393,7 @@ Access-Control-Allow-Origin： *；  // 所以的请求都允许跨域请求
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-01-10T16:00:00.000Z">2019-01-11</time>
+                <time class="level-item has-text-grey" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time>
                 
                 
                 
@@ -340,13 +402,65 @@ Access-Control-Allow-Origin： *；  // 所以的请求都允许跨域请求
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/01/11/hello-github-pages/"></a>
+                <a class="has-link-black-ter" href="/2018/02/19/2018-02-19-常用代码片段/">常用js代码片段</a>
             
         </h1>
         <div class="content">
-            <h1 id="hello-github-pages"><a href="#hello-github-pages" class="headerlink" title="hello github pages"></a>hello github pages</h1><p><em>这是</em></p>
-<p>姓名|技能|排行<br>–|：–：|–：<br>刘备|哭|大哥</p>
+            <h4 id="常用js代码片段"><a href="#常用js代码片段" class="headerlink" title="常用js代码片段"></a>常用js代码片段</h4><h5 id="1-获取当前时间（年-月-日-时-分）"><a href="#1-获取当前时间（年-月-日-时-分）" class="headerlink" title="1.获取当前时间（年-月-日 时:分）"></a>1.获取当前时间（年-月-日 时:分）</h5><pre><code>module.exports = {
+    getNowTime (connector) { // connector 连接符，不传默认为 -
+        if (!connector) connector = &apos;-&apos;
+        const nowTime = new Date()
+        const nowMonth = nowTime.getMonth()+1 &lt; 10 ? &apos;0&apos; + (nowTime.getMonth()+1) : nowTime.getMonth() + 1
+        const nowDay = nowTime.getDay() &lt; 10 ? &apos;0&apos; + nowTime.getDay() : nowTime.getDay()
+        const nowHours = nowTime.getHours() &lt; 10 ? &apos;0&apos; + nowTime.getHours() : nowTime.getHours()
+        const nowMinute = nowTime.getMinutes() &lt; 10 ? &apos;0&apos; + nowTime.getMinutes() : nowTime.getMinutes()
+        return nowTime.getFullYear() + connector + nowMonth + connector + nowDay + &apos; &apos; + nowHours + &apos;:&apos; + nowMinute
+      }
+}
 
+// 获取结果为： 2018-02-12 17:08
+</code></pre><h5 id="2-向左滑动展示删除按钮功能"><a href="#2-向左滑动展示删除按钮功能" class="headerlink" title="2.向左滑动展示删除按钮功能"></a>2.向左滑动展示删除按钮功能</h5><pre><code>//向左滑动展示删除会议按钮
+function showDeleteWithSlide () {
+    var slideItem = $(&apos;.meetingList&apos;).find(&apos;ul&apos;);
+    var slideStartX=0, slideStartY=0, slideEndX=0, slideEndY=0, slideX=0, slideY=0;
+    slideItem.on(&apos;touchstart&apos;, function (e) {
+        e.stopPropagation();
+        slideStartX = e.changedTouches[0].clientX;
+        slideStartY = e.changedTouches[0].clientY;
+    });
+    slideItem.on(&apos;touchmove&apos;, function(e){
+        e.stopPropagation();
+        slideEndX = e.changedTouches[0].clientX;
+        slideEndY = e.changedTouches[0].clientY;
+        slideX = slideEndX - slideStartX;
+        slideY = slideEndY - slideStartY;
+        if(Math.abs(slideY) &gt;= Math.abs(slideX)) { //竖向滑动
+            slideItem.each(function(){
+                if($(this).hasClass(&apos;show-from-right&apos;)){
+                    $(this).removeClass(&apos;show-from-right&apos;).addClass(&apos;hide-to-right&apos;);
+                    if(&apos;meeting_type&apos; == $(this).children(&apos;li:last-child&apos;).attr(&apos;class&apos;) &amp;&amp; $(this).children(&apos;li:last-child&apos;).text()) $(this).children(&apos;li:last-child&apos;).show();
+                }
+            })
+            return; //竖向滑动释放默认行为
+        };
+        e.preventDefault();
+    });
+    slideItem.on(&apos;touchend&apos;, function(e){
+        e.stopPropagation();
+        if(slideX&lt;-50){
+            $(this).removeClass(&apos;hide-to-right&apos;).addClass(&apos;show-from-right&apos;);
+        }else if (slideX&gt;50) {
+            if($(this).hasClass(&apos;show-from-right&apos;)) $(this).removeClass(&apos;show-from-right&apos;).addClass(&apos;hide-to-right&apos;);
+        }
+
+        if(Math.abs(slideX)&gt;50 &amp;&amp; &apos;meeting_type&apos; == $(this).children(&apos;li:last-child&apos;).attr(&apos;class&apos;) &amp;&amp; &apos;show-from-right&apos; == $(this).attr(&apos;class&apos;)) {
+            $(this).children(&apos;li:last-child&apos;).hide();
+        }else if(Math.abs(slideX)&gt;50 &amp;&amp; &apos;meeting_type&apos; == $(this).children(&apos;li:last-child&apos;).attr(&apos;class&apos;) &amp;&amp; &apos;hide-to-right&apos; == $(this).attr(&apos;class&apos;) &amp;&amp; $(this).children(&apos;li:last-child&apos;).text()){
+            $(this).children(&apos;li:last-child&apos;).show();
+        };
+    })
+}
+</code></pre>
         </div>
         
         
@@ -367,7 +481,7 @@ Access-Control-Allow-Origin： *；  // 所以的请求都允许跨域请求
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-02-18T16:00:00.000Z">2018-02-19</time>
+                <time class="level-item has-text-grey" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time>
                 
                 
                 
@@ -376,7 +490,7 @@ Access-Control-Allow-Origin： *；  // 所以的请求都允许跨域请求
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2018/02/19/Mint UI踩坑之路/"></a>
+                <a class="has-link-black-ter" href="/2018/02/19/2018-02-19-Mint UI踩坑之路/">Mint UI 踩坑之路</a>
             
         </h1>
         <div class="content">
@@ -474,7 +588,7 @@ Vue.prototype.$messagebox = MessageBox
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-02-18T16:00:00.000Z">2018-02-19</time>
+                <time class="level-item has-text-grey" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time>
                 
                 
                 
@@ -483,7 +597,7 @@ Vue.prototype.$messagebox = MessageBox
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2018/02/19/charles连接手机抓包/"></a>
+                <a class="has-link-black-ter" href="/2018/02/19/2018-02-19-charles连接手机抓包/">charles连接手机抓包</a>
             
         </h1>
         <div class="content">
@@ -535,7 +649,7 @@ Vue.prototype.$messagebox = MessageBox
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-02-18T16:00:00.000Z">2018-02-19</time>
+                <time class="level-item has-text-grey" datetime="2018-02-12T11:13:13.000Z">2018-02-12</time>
                 
                 
                 
@@ -544,64 +658,58 @@ Vue.prototype.$messagebox = MessageBox
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2018/02/19/常用代码片段/"></a>
+                <a class="has-link-black-ter" href="/2018/02/12/2018-02-12-vue学习笔记之过渡类名实现动画/">vue过渡类名实现动画</a>
             
         </h1>
         <div class="content">
-            <h4 id="常用js代码片段"><a href="#常用js代码片段" class="headerlink" title="常用js代码片段"></a>常用js代码片段</h4><h5 id="1-获取当前时间（年-月-日-时-分）"><a href="#1-获取当前时间（年-月-日-时-分）" class="headerlink" title="1.获取当前时间（年-月-日 时:分）"></a>1.获取当前时间（年-月-日 时:分）</h5><pre><code>module.exports = {
-    getNowTime (connector) { // connector 连接符，不传默认为 -
-        if (!connector) connector = &apos;-&apos;
-        const nowTime = new Date()
-        const nowMonth = nowTime.getMonth()+1 &lt; 10 ? &apos;0&apos; + (nowTime.getMonth()+1) : nowTime.getMonth() + 1
-        const nowDay = nowTime.getDay() &lt; 10 ? &apos;0&apos; + nowTime.getDay() : nowTime.getDay()
-        const nowHours = nowTime.getHours() &lt; 10 ? &apos;0&apos; + nowTime.getHours() : nowTime.getHours()
-        const nowMinute = nowTime.getMinutes() &lt; 10 ? &apos;0&apos; + nowTime.getMinutes() : nowTime.getMinutes()
-        return nowTime.getFullYear() + connector + nowMonth + connector + nowDay + &apos; &apos; + nowHours + &apos;:&apos; + nowMinute
-      }
-}
+            <h4 id="vue过渡类名实现动画"><a href="#vue过渡类名实现动画" class="headerlink" title="vue过渡类名实现动画"></a>vue过渡类名实现动画</h4><p><a href="https://cn.vuejs.org/v2/guide/transitions.html" target="_blank" rel="noopener">进入/离开 &amp; 列表过渡</a></p>
 
-// 获取结果为： 2018-02-12 17:08
-</code></pre><h5 id="2-向左滑动展示删除按钮功能"><a href="#2-向左滑动展示删除按钮功能" class="headerlink" title="2.向左滑动展示删除按钮功能"></a>2.向左滑动展示删除按钮功能</h5><pre><code>//向左滑动展示删除会议按钮
-function showDeleteWithSlide () {
-    var slideItem = $(&apos;.meetingList&apos;).find(&apos;ul&apos;);
-    var slideStartX=0, slideStartY=0, slideEndX=0, slideEndY=0, slideX=0, slideY=0;
-    slideItem.on(&apos;touchstart&apos;, function (e) {
-        e.stopPropagation();
-        slideStartX = e.changedTouches[0].clientX;
-        slideStartY = e.changedTouches[0].clientY;
-    });
-    slideItem.on(&apos;touchmove&apos;, function(e){
-        e.stopPropagation();
-        slideEndX = e.changedTouches[0].clientX;
-        slideEndY = e.changedTouches[0].clientY;
-        slideX = slideEndX - slideStartX;
-        slideY = slideEndY - slideStartY;
-        if(Math.abs(slideY) &gt;= Math.abs(slideX)) { //竖向滑动
-            slideItem.each(function(){
-                if($(this).hasClass(&apos;show-from-right&apos;)){
-                    $(this).removeClass(&apos;show-from-right&apos;).addClass(&apos;hide-to-right&apos;);
-                    if(&apos;meeting_type&apos; == $(this).children(&apos;li:last-child&apos;).attr(&apos;class&apos;) &amp;&amp; $(this).children(&apos;li:last-child&apos;).text()) $(this).children(&apos;li:last-child&apos;).show();
-                }
-            })
-            return; //竖向滑动释放默认行为
-        };
-        e.preventDefault();
-    });
-    slideItem.on(&apos;touchend&apos;, function(e){
-        e.stopPropagation();
-        if(slideX&lt;-50){
-            $(this).removeClass(&apos;hide-to-right&apos;).addClass(&apos;show-from-right&apos;);
-        }else if (slideX&gt;50) {
-            if($(this).hasClass(&apos;show-from-right&apos;)) $(this).removeClass(&apos;show-from-right&apos;).addClass(&apos;hide-to-right&apos;);
-        }
+        </div>
+        
+        
+        
+    </div>
+</div>
 
-        if(Math.abs(slideX)&gt;50 &amp;&amp; &apos;meeting_type&apos; == $(this).children(&apos;li:last-child&apos;).attr(&apos;class&apos;) &amp;&amp; &apos;show-from-right&apos; == $(this).attr(&apos;class&apos;)) {
-            $(this).children(&apos;li:last-child&apos;).hide();
-        }else if(Math.abs(slideX)&gt;50 &amp;&amp; &apos;meeting_type&apos; == $(this).children(&apos;li:last-child&apos;).attr(&apos;class&apos;) &amp;&amp; &apos;hide-to-right&apos; == $(this).attr(&apos;class&apos;) &amp;&amp; $(this).children(&apos;li:last-child&apos;).text()){
-            $(this).children(&apos;li:last-child&apos;).show();
-        };
-    })
-}
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-02-12T11:13:13.000Z">2018-02-12</time>
+                
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/02/12/2018-02-12-vue学习笔记之自定义按键修饰符/">自定义按键修饰符</a>
+            
+        </h1>
+        <div class="content">
+            <h4 id="自定义按键修饰符"><a href="#自定义按键修饰符" class="headerlink" title="自定义按键修饰符"></a>自定义按键修饰符</h4><p><a href="https://cn.vuejs.org/v2/guide/events.html#%E6%8C%89%E9%94%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6" target="_blank" rel="noopener">语法</a>： </p>
+<blockquote>
+<p>Vue.config.keyCodes.xxx = xxx对应的keyCode值</p>
+</blockquote>
+<p>我们知道，vue为我们提供了部分“见名知意”的<a href="https://cn.vuejs.org/v2/guide/events.html#%E6%8C%89%E9%94%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6" target="_blank" rel="noopener">按键修饰符</a>，使用方法如下：</p>
+<pre><code>&lt;input type=&quot;button&quot; value=&quot;保存&quot; @keyup.enter=&quot;save&quot;/&gt; // 点击enter触发 save() 方法
+&lt;input type=&quot;button&quot; value=&quot;保存&quot; @keyup.13=&quot;save&quot;/&gt; // 点击enter触发 save() 方法
+</code></pre><p>除此之外，我们想要使用vue尚未提供的按键修饰符，只能使用按键对应的keyCode值，不能很好的见名知意，例如，我们想按f2键来执行一个<code>save()</code>方法，只能查询f2对应的<a href="http://www.cnblogs.com/wuhua1/p/6686237.html" target="_blank" rel="noopener">keyCode</a>值，使用如下语法来触发<code>save()</code>方法:</p>
+<pre><code>&lt;input type=&quot;button&quot; value=&quot;保存&quot; @keyup.113=&quot;save&quot; /&gt; // f2对应的keycode值为113,不能直接使用f2,因为vue事先并未提供
+</code></pre><p>为了更好的见名知意，我们可以通过全局 <code>config.keyCodes</code> 对象自定义按键修饰符别名，例如自定义f2的按键修饰符</p>
+<pre><code>Vue.config.keyCodes.f2 = 113 // 当全局自定义完按键修饰符别名f2后，可直接使用f2来达到按键作用
+
+&lt;input type=&quot;button&quot; value=&quot;保存&quot; @keyup.f2=&quot;save&quot; /&gt; 
 </code></pre>
         </div>
         
@@ -623,7 +731,7 @@ function showDeleteWithSlide () {
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-02-11T16:00:00.000Z">2018-02-12</time>
+                <time class="level-item has-text-grey" datetime="2018-02-12T11:13:13.000Z">2018-02-12</time>
                 
                 
                 
@@ -632,7 +740,137 @@ function showDeleteWithSlide () {
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2018/02/12/vue学习笔记之生命周期钩子函数/"></a>
+                <a class="has-link-black-ter" href="/2018/02/12/2018-02-12-vue学习笔记之自定义全局和私有指令/">自定义全局/私有指令</a>
+            
+        </h1>
+        <div class="content">
+            <h4 id="自定义全局-私有指令"><a href="#自定义全局-私有指令" class="headerlink" title="自定义全局/私有指令"></a>自定义全局/私有指令</h4><p><a href="https://cn.vuejs.org/v2/guide/custom-directive.html" target="_blank" rel="noopener">语法</a>：</p>
+<blockquote>
+<p>全局指令： Vue.directive(‘xxx’, {})</p>
+<p>私有指令： directives: {‘xxx’, {}}</p>
+</blockquote>
+<ol>
+<li><p>在 main.js 中使用  <code>Vue.directive(&#39;xxx&#39;, {})</code> 定义全局指令，此方法接受两个参数</p>
+<ul>
+<li>参数1： 指令的名称； <ul>
+<li><strong>注意：</strong>在定义的时候，指令的名称前面，不需要加 <code>v-</code> 前缀，但在调用的时候，必须在指令名称前加上 <code>v-</code> 前缀来进行使用</li>
+</ul>
+</li>
+<li><p>参数2： 一个对象，这个对象上，有一些指令相关的函数，这些函数可以在特定的阶段，执行相关的操作，对应的函数如下（自定义获取焦点的指令）：</p>
+<pre><code>Vue.directive(&apos;focus&apos;, {
+    bind: el =&gt; {    
+        // 每当指令绑定到元素上时，会立即触发这个bind函数，只执行一次
+        // 在元素刚绑定了指令的时候，还没有插入到DOM中去，这时候，调用操作DOM的方法，并不生效，故在此调用 el.focus()，并不生效
+        // 因为一个元素只有在插入DOM之后，才能获取焦点
+        el.focus() // 不生效
+    },
+    inserted: el =&gt; {
+        // 该方法表示元素插入到DOM中的时候，会执行inserted函数，同样只执行一次
+        el.focus() // 此处调用操作DOM的方法生效，因为元素已经插入到DOM树中
+    },
+    updated: el =&gt; {
+        // 当VNode更新时，会触发updated方法，该方法会触发多次
+    }
+})
+</code></pre><blockquote>
+<p>注意：</p>
+<ul>
+<li>在每个函数中，第一个参数，永远是 <code>el</code> ,表示被绑定了指令的那个元素，这个 <code>el</code> 参数，是一个原生的js对象，可调用原生的js方法</li>
+<li>和样式相关的操作，在bind中写，和行为相关的，在inserted中写，因为诸如el.style.color = “red”设置的内联样式来说，最终都要插入到页面中去</li>
+</ul>
+</blockquote>
+<p>  当自定义好全局指令后，可直接在标签内使用 <code>v-xxx</code> 绑定指令</p>
+<pre><code>&lt;input type=&quot;text&quot; v-foucs /&gt;
+</code></pre></li>
+</ul>
+</li>
+<li><p>如果想注册局部指令，组件中接受一个 <code>directives</code> （带s）的选项</p>
+<pre><code>directives: {
+    focus: {
+        bind: el =&gt; {
+
+        },
+        inserted: el =&gt; {
+
+        },
+        updated: el =&gt; {
+
+        }
+    }
+}
+
+// 然后可以在模板中任何元素上使用新的 v-focus 属性，如下：
+&lt;input type=&quot;text&quot; v-focus /&gt;
+</code></pre></li>
+<li><p><a href="https://cn.vuejs.org/v2/guide/custom-directive.html#%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0" target="_blank" rel="noopener">点此查看钩子函数对应的其它参数</a></p>
+<pre><code>// 如有需求：动态的修改输入框字体的颜色，可自定义 color 指令
+Vue.directive(&apos;color&apos;, {
+    bind: (el, binding) =&gt; {
+        el.style.color = binding.value
+    }
+})
+
+// 指定按如下方式绑定，注意参数需带引号，否则为变量，会去data中查值
+&lt;input type=&quot;text&quot; v-color=&quot;&apos;red&apos;&quot; /&gt; // 输入框为红色字体
+&lt;input type=&quot;text&quot; v-color=&quot;&apos;blue&apos;&quot; /&gt; // 输入框为蓝色字体
+</code></pre><blockquote>
+<p>注意：指令的绑定，遵从就近原则，意：当某一指令，在全局和局部都有自定义时，优先绑定局部指令</p>
+</blockquote>
+</li>
+<li><p>自定义指令函数的简写</p>
+</li>
+</ol>
+<p><a href="https://cn.vuejs.org/v2/guide/custom-directive.html#%E5%87%BD%E6%95%B0%E7%AE%80%E5%86%99" target="_blank" rel="noopener">语法</a>:</p>
+<blockquote>
+<p>在很多时候，你可能想在 bind 和 update 时触发相同行为，而不关心其它的钩子。比如这样写:</p>
+<p>Vue.directive(‘xxx’, function (el, binding) {})</p>
+</blockquote>
+<pre><code>// 自定义修改字体大小的指令
+// 全局指令
+Vue.directive(&apos;fontsize&apos;, (el, binding) =&gt; {
+    el.style.fontSize = parseInt(binding.value) + &apos;px&apos;
+})
+// 私有指令
+directives: {
+    fontsize: (el, binding) =&gt; {
+        el.style.fontSize = parseInt(binding.value) + &apos;px&apos;
+    }
+}
+
+// 使用
+&lt;input type=&quot;text&quot; v-fontsize=&quot;50&quot; /&gt;
+&lt;input type=&quot;text&quot; v-fontsize=&quot;&apos;50px&apos;&quot; /&gt;
+</code></pre>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-02-12T11:13:13.000Z">2018-02-12</time>
+                
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/02/12/2018-02-12-vue学习笔记之生命周期钩子函数/">vue生命周期</a>
             
         </h1>
         <div class="content">
@@ -696,88 +934,6 @@ destoryed () {
 
 
 
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-02-11T16:00:00.000Z">2018-02-12</time>
-                
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2018/02/12/vue学习笔记之过渡类名实现动画/"></a>
-            
-        </h1>
-        <div class="content">
-            <h4 id="vue过渡类名实现动画"><a href="#vue过渡类名实现动画" class="headerlink" title="vue过渡类名实现动画"></a>vue过渡类名实现动画</h4><p><a href="https://cn.vuejs.org/v2/guide/transitions.html" target="_blank" rel="noopener">进入/离开 &amp; 列表过渡</a></p>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-02-11T16:00:00.000Z">2018-02-12</time>
-                
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2018/02/12/vue学习笔记之自定义按键修饰符/"></a>
-            
-        </h1>
-        <div class="content">
-            <h4 id="自定义按键修饰符"><a href="#自定义按键修饰符" class="headerlink" title="自定义按键修饰符"></a>自定义按键修饰符</h4><p><a href="https://cn.vuejs.org/v2/guide/events.html#%E6%8C%89%E9%94%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6" target="_blank" rel="noopener">语法</a>： </p>
-<blockquote>
-<p>Vue.config.keyCodes.xxx = xxx对应的keyCode值</p>
-</blockquote>
-<p>我们知道，vue为我们提供了部分“见名知意”的<a href="https://cn.vuejs.org/v2/guide/events.html#%E6%8C%89%E9%94%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6" target="_blank" rel="noopener">按键修饰符</a>，使用方法如下：</p>
-<pre><code>&lt;input type=&quot;button&quot; value=&quot;保存&quot; @keyup.enter=&quot;save&quot;/&gt; // 点击enter触发 save() 方法
-&lt;input type=&quot;button&quot; value=&quot;保存&quot; @keyup.13=&quot;save&quot;/&gt; // 点击enter触发 save() 方法
-</code></pre><p>除此之外，我们想要使用vue尚未提供的按键修饰符，只能使用按键对应的keyCode值，不能很好的见名知意，例如，我们想按f2键来执行一个<code>save()</code>方法，只能查询f2对应的<a href="http://www.cnblogs.com/wuhua1/p/6686237.html" target="_blank" rel="noopener">keyCode</a>值，使用如下语法来触发<code>save()</code>方法:</p>
-<pre><code>&lt;input type=&quot;button&quot; value=&quot;保存&quot; @keyup.113=&quot;save&quot; /&gt; // f2对应的keycode值为113,不能直接使用f2,因为vue事先并未提供
-</code></pre><p>为了更好的见名知意，我们可以通过全局 <code>config.keyCodes</code> 对象自定义按键修饰符别名，例如自定义f2的按键修饰符</p>
-<pre><code>Vue.config.keyCodes.f2 = 113 // 当全局自定义完按键修饰符别名f2后，可直接使用f2来达到按键作用
-
-&lt;input type=&quot;button&quot; value=&quot;保存&quot; @keyup.f2=&quot;save&quot; /&gt; 
-</code></pre>
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -825,6 +981,11 @@ destoryed () {
                     </p>
                     
                     
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>北京</span>
+                    </p>
+                    
                 </div>
             </div>
         </nav>
@@ -835,7 +996,7 @@ destoryed () {
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        15
+                        14
                     </p>
                 </div>
             </div>
@@ -855,7 +1016,7 @@ destoryed () {
                         Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        0
+                        4
                     </p>
                 </div>
             </div>
@@ -925,6 +1086,15 @@ destoryed () {
 </div>
     
         
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/Mint-UI/" style="font-size: 10px;">Mint UI</a> <a href="/tags/charles/" style="font-size: 10px;">charles</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a>
+    </div>
+</div>
+
     
     
         <div class="column-right-shadow is-hidden-widescreen is-sticky">
@@ -940,8 +1110,21 @@ destoryed () {
             
             <div class="media-content">
                 <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-18T14:16:25.000Z">2019-03-18</time></div>
+                    <a href="/2019/03/18/test-md/" class="has-link-black-ter is-size-6">test.md</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-17T11:13:13.000Z">2019-03-17</time></div>
-                    <a href="/2019/03/17/2019-03-17-hello-md/" class="has-link-black-ter is-size-6">2019-03-17-hello.md</a>
+                    <a href="/2019/03/17/2019-03-17-hello-md/" class="has-link-black-ter is-size-6">hello</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -953,8 +1136,8 @@ destoryed () {
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-16T08:11:52.303Z">2019-03-16</time></div>
-                    <a href="/2019/03/16/hello-world/" class="has-link-black-ter is-size-6">Hello World</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-11T11:13:13.000Z">2019-01-11</time></div>
+                    <a href="/2019/01/11/2019-01-11-前后端交互之跨域问题-md/" class="has-link-black-ter is-size-6">前后端交互之跨域问题</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -966,8 +1149,8 @@ destoryed () {
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-10T16:00:00.000Z">2019-01-11</time></div>
-                    <a href="/2019/01/11/前后端交互之跨域问题/" class="has-link-black-ter is-size-6"></a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
+                    <a href="/2018/02/19/2018-02-19-常用代码片段/" class="has-link-black-ter is-size-6">常用js代码片段</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -979,21 +1162,8 @@ destoryed () {
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-10T16:00:00.000Z">2019-01-11</time></div>
-                    <a href="/2019/01/11/hello-github-pages/" class="has-link-black-ter is-size-6"></a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-18T16:00:00.000Z">2018-02-19</time></div>
-                    <a href="/2018/02/19/Mint UI踩坑之路/" class="has-link-black-ter is-size-6"></a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
+                    <a href="/2018/02/19/2018-02-19-Mint UI踩坑之路/" class="has-link-black-ter is-size-6">Mint UI 踩坑之路</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1030,7 +1200,7 @@ destoryed () {
                     <span class="level-item">January 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">1</span>
                 </span>
             </a>
         </li>
@@ -1080,6 +1250,34 @@ destoryed () {
                 Tags
             </h3>
             <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Mint-UI/">
+                        <span class="tag">Mint UI</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/charles/">
+                        <span class="tag">charles</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/js/">
+                        <span class="tag">js</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
                 
             </div>
         </div>
@@ -1108,8 +1306,21 @@ destoryed () {
             
             <div class="media-content">
                 <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-18T14:16:25.000Z">2019-03-18</time></div>
+                    <a href="/2019/03/18/test-md/" class="has-link-black-ter is-size-6">test.md</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-17T11:13:13.000Z">2019-03-17</time></div>
-                    <a href="/2019/03/17/2019-03-17-hello-md/" class="has-link-black-ter is-size-6">2019-03-17-hello.md</a>
+                    <a href="/2019/03/17/2019-03-17-hello-md/" class="has-link-black-ter is-size-6">hello</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1121,8 +1332,8 @@ destoryed () {
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-16T08:11:52.303Z">2019-03-16</time></div>
-                    <a href="/2019/03/16/hello-world/" class="has-link-black-ter is-size-6">Hello World</a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-11T11:13:13.000Z">2019-01-11</time></div>
+                    <a href="/2019/01/11/2019-01-11-前后端交互之跨域问题-md/" class="has-link-black-ter is-size-6">前后端交互之跨域问题</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1134,8 +1345,8 @@ destoryed () {
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-10T16:00:00.000Z">2019-01-11</time></div>
-                    <a href="/2019/01/11/前后端交互之跨域问题/" class="has-link-black-ter is-size-6"></a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
+                    <a href="/2018/02/19/2018-02-19-常用代码片段/" class="has-link-black-ter is-size-6">常用js代码片段</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1147,21 +1358,8 @@ destoryed () {
             
             <div class="media-content">
                 <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-01-10T16:00:00.000Z">2019-01-11</time></div>
-                    <a href="/2019/01/11/hello-github-pages/" class="has-link-black-ter is-size-6"></a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-18T16:00:00.000Z">2018-02-19</time></div>
-                    <a href="/2018/02/19/Mint UI踩坑之路/" class="has-link-black-ter is-size-6"></a>
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
+                    <a href="/2018/02/19/2018-02-19-Mint UI踩坑之路/" class="has-link-black-ter is-size-6">Mint UI 踩坑之路</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -1198,7 +1396,7 @@ destoryed () {
                     <span class="level-item">January 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">1</span>
                 </span>
             </a>
         </li>
@@ -1249,6 +1447,34 @@ destoryed () {
             </h3>
             <div class="field is-grouped is-grouped-multiline">
                 
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Mint-UI/">
+                        <span class="tag">Mint UI</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/charles/">
+                        <span class="tag">charles</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/js/">
+                        <span class="tag">js</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
             </div>
         </div>
     </div>
@@ -1266,11 +1492,11 @@ destoryed () {
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="Hexo" height="28">
+                    <img src="/images/logo_title.png" alt="Y-Cwei" height="28">
                 
                 </a>
                 <p class="is-size-7">
-                &copy; 2019 John Doe&nbsp;
+                &copy; 2019 Y-Cwei&nbsp;
                 Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
                 
                 </p>
