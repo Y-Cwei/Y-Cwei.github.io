@@ -7,18 +7,18 @@
 
 
 
-    <meta name="description" content="前后端交互之跨域问题跨域出现的原因：浏览器为安全性考虑而实施的同源策略    ，当协议名，域名，端口号三者中任一一种不相同，就会产生跨域问题。 1. jsonp解决跨域 在 HTML 标签里，一些诸如 script、img 这样的资源的标签是没有跨域限制的，我们利用这一点，绕过 ajax 引擎，从而解决跨域请求   使用 node.js 建立服务 const http = require(&amp;apo">
+    <meta name="description" content="前后端交互之跨域问题跨域出现的原因：浏览器为安全性考虑而实施的同源策略    ，当协议名，域名，端口号三者中任一一种不相同，就会产生跨域问题。 1. jsonp解决跨域 在 HTML 标签里，一些诸如 script、img 这样的资源的标签是没有跨域限制的，我们利用这一点，绕过 ajax 引擎，从而解决跨域请求">
 <meta name="keywords" content="js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前后端交互之跨域问题">
 <meta property="og:url" content="http://yoursite.com/2019/01/11/2019-01-11-前后端交互之跨域问题-md/index.html">
 <meta property="og:site_name" content="Y-Cwei">
-<meta property="og:description" content="前后端交互之跨域问题跨域出现的原因：浏览器为安全性考虑而实施的同源策略    ，当协议名，域名，端口号三者中任一一种不相同，就会产生跨域问题。 1. jsonp解决跨域 在 HTML 标签里，一些诸如 script、img 这样的资源的标签是没有跨域限制的，我们利用这一点，绕过 ajax 引擎，从而解决跨域请求   使用 node.js 建立服务 const http = require(&amp;apo">
+<meta property="og:description" content="前后端交互之跨域问题跨域出现的原因：浏览器为安全性考虑而实施的同源策略    ，当协议名，域名，端口号三者中任一一种不相同，就会产生跨域问题。 1. jsonp解决跨域 在 HTML 标签里，一些诸如 script、img 这样的资源的标签是没有跨域限制的，我们利用这一点，绕过 ajax 引擎，从而解决跨域请求">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-18T14:23:41.137Z">
+<meta property="og:updated_time" content="2019-03-20T14:21:56.376Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前后端交互之跨域问题">
-<meta name="twitter:description" content="前后端交互之跨域问题跨域出现的原因：浏览器为安全性考虑而实施的同源策略    ，当协议名，域名，端口号三者中任一一种不相同，就会产生跨域问题。 1. jsonp解决跨域 在 HTML 标签里，一些诸如 script、img 这样的资源的标签是没有跨域限制的，我们利用这一点，绕过 ajax 引擎，从而解决跨域请求   使用 node.js 建立服务 const http = require(&amp;apo">
+<meta name="twitter:description" content="前后端交互之跨域问题跨域出现的原因：浏览器为安全性考虑而实施的同源策略    ，当协议名，域名，端口号三者中任一一种不相同，就会产生跨域问题。 1. jsonp解决跨域 在 HTML 标签里，一些诸如 script、img 这样的资源的标签是没有跨域限制的，我们利用这一点，绕过 ajax 引擎，从而解决跨域请求">
 
 
 
@@ -154,10 +154,11 @@
         <div class="content">
             <h4 id="前后端交互之跨域问题"><a href="#前后端交互之跨域问题" class="headerlink" title="前后端交互之跨域问题"></a>前后端交互之跨域问题</h4><p>跨域出现的原因：浏览器为安全性考虑而实施的同源策略    ，当协议名，域名，端口号三者中任一一种不相同，就会产生跨域问题。</p>
 <h5 id="1-jsonp解决跨域"><a href="#1-jsonp解决跨域" class="headerlink" title="1. jsonp解决跨域"></a>1. jsonp解决跨域</h5><blockquote>
-<p>在 HTML 标签里，一些诸如 script、img 这样的资源的标签是没有跨域限制的，我们利用这一点，绕过 ajax 引擎，从而解决跨域请求</p>
-</blockquote>
+<p>在 HTML 标签里，一些诸如 script、img 这样的资源的标签是没有跨域限制的，我们利用这一点，绕过 ajax 引擎，从而解决跨域请求<br><a id="more"></a></p>
 <ul>
-<li><p>使用 node.js 建立服务</p>
+<li>使用 node.js 建立服务</li>
+</ul>
+</blockquote>
 <pre><code>const http = require(&apos;http&apos;); // 导入http内置模块
 
 const server = http.createServer() // 创建一个http服务
@@ -175,7 +176,7 @@ server.on(&apos;request&apos;, function(req, res){ // 监听http服务器的requ
 server.listen(3000, function(){ // 指定端口号并启动服务器监听
     console.log(&apos;server listen at http://127.0.0.1:3000&apos;)；
 })
-</code></pre></li>
+</code></pre><ul>
 <li><p>前端书写规范</p>
 <pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
     function show (data) { // 事先声明好一个处理请求的回调函数，供服务器触发
@@ -302,8 +303,8 @@ Access-Control-Allow-Origin： *；  // 所以的请求都允许跨域请求
         
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2018/02/19/2018-02-19-Mint UI踩坑之路/">
-                <span class="level-item">Mint UI 踩坑之路</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2018/02/19/2018-02-19-常用代码片段/">
+                <span class="level-item">常用js代码片段</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -496,7 +497,7 @@ Access-Control-Allow-Origin： *；  // 所以的请求都允许跨域请求
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
-                    <a href="/2018/02/19/2018-02-19-Mint UI踩坑之路/" class="has-link-black-ter is-size-6">Mint UI 踩坑之路</a>
+                    <a href="/2018/02/19/2018-02-19-常用代码片段/" class="has-link-black-ter is-size-6">常用js代码片段</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -522,7 +523,7 @@ Access-Control-Allow-Origin： *；  // 所以的请求都允许跨域请求
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
-                    <a href="/2018/02/19/2018-02-19-常用代码片段/" class="has-link-black-ter is-size-6">常用js代码片段</a>
+                    <a href="/2018/02/19/2018-02-19-Mint UI踩坑之路/" class="has-link-black-ter is-size-6">Mint UI 踩坑之路</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -692,7 +693,7 @@ Access-Control-Allow-Origin： *；  // 所以的请求都允许跨域请求
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
-                    <a href="/2018/02/19/2018-02-19-Mint UI踩坑之路/" class="has-link-black-ter is-size-6">Mint UI 踩坑之路</a>
+                    <a href="/2018/02/19/2018-02-19-常用代码片段/" class="has-link-black-ter is-size-6">常用js代码片段</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -718,7 +719,7 @@ Access-Control-Allow-Origin： *；  // 所以的请求都允许跨域请求
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
-                    <a href="/2018/02/19/2018-02-19-常用代码片段/" class="has-link-black-ter is-size-6">常用js代码片段</a>
+                    <a href="/2018/02/19/2018-02-19-Mint UI踩坑之路/" class="has-link-black-ter is-size-6">Mint UI 踩坑之路</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>

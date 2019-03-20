@@ -166,74 +166,17 @@
 <pre><code>import { CellSwipe } from &apos;mint-ui&apos;
 
 Vue.component(CellSwipe.name, CellSwipe)
-</code></pre></li>
-<li><p>Example</p>
-<pre><code>&lt;mt-cell-swipe
-  title=&quot;text&quot;
-  :right=&quot;[
-    {
-      content: &apos;Delete&apos;,
-      style: { background: &apos;red&apos;, color: &apos;#fff&apos; },
-      handler: () =&gt; this.$messagebox(&apos;delete&apos;)
-    }
-  ]&quot;&gt;&lt;/mt-cell-swipe&gt;
-</code></pre></li>
-</ul>
-<blockquote>
-<p>注意：标签内 handler 中命名的方法，并不能满足我们的需求，可对其进行如下调整，在methods中自定义一个我们所需处理逻辑的方法</p>
-</blockquote>
-<pre><code>&lt;mt-cell-swipe
-  title=&quot;text&quot;
-  v-for=&quot;(item, index) in lists&quot;
-  :key=&quot;index&quot;
-  :right=&quot;[
-    {
-      content: &apos;Delete&apos;,
-      style: { background: &apos;red&apos;, color: &apos;#fff&apos; },
-      handler(){deleteItem(index)} // 1.如此修改此handler方法，会调用我们methods中自定义的方法，注：函数名不能命名为delete,严格模式下回报错
-    }
-  ]&quot;&gt;&lt;/mt-cell-swipe&gt;
-
-methods: {
-  deleteItem (index) {
-    // 2.封装自己处理删除单条数据的方法,index为对应item的索引值
-
-    console.log(`删除的为数组中的第${index}项`)
-  }
-}
-</code></pre><blockquote>
-<p>注意：handler(){ } 中的方法调用，不需要加 this</p>
-</blockquote>
-<h5 id="2-Mint-UI-之-Message-box-用法"><a href="#2-Mint-UI-之-Message-box-用法" class="headerlink" title="2. Mint UI 之 Message box 用法"></a>2. Mint UI 之 Message box 用法</h5><blockquote>
-<p>官方API如：<a href="https://mint-ui.github.io/docs/#/en2/message-box" target="_blank" rel="noopener">Mint UI 之 Message box</a></p>
-</blockquote>
-<ul>
-<li><p>Import</p>
-<pre><code>import { MessageBox } from &apos;mint-ui&apos;
-
-Vue.prototype.$messagebox = MessageBox
-</code></pre></li>
-<li><p>Example</p>
-<pre><code>this.$messagebox.confirm(&apos;&apos;, {
-    message: `是否确认删除${this.applyLists[index].name}模板？`,
-    title: &apos;&apos;,
-    confirmButtonText: &apos;确认&apos;,
-    cancelButtonText: &apos;取消&apos;,
-    className: &apos;myMessage&apos;
-  }).then(action =&gt; {
-    if (action === &apos;confirm&apos;) {
-      // 确认逻辑
-    }
-  }).catch(err =&gt; {
-    if (err === &apos;cancel&apos;) {
-      // 取消关闭
-    }
-  })
-</code></pre></li>
-</ul>
-
+</code></pre></li></ul>
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2018/02/19/2018-02-19-Mint UI踩坑之路/#more">Read More</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -430,7 +373,7 @@ Vue.prototype.$messagebox = MessageBox
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
-                    <a href="/2018/02/19/2018-02-19-Mint UI踩坑之路/" class="has-link-black-ter is-size-6">Mint UI 踩坑之路</a>
+                    <a href="/2018/02/19/2018-02-19-常用代码片段/" class="has-link-black-ter is-size-6">常用js代码片段</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -456,7 +399,7 @@ Vue.prototype.$messagebox = MessageBox
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
-                    <a href="/2018/02/19/2018-02-19-常用代码片段/" class="has-link-black-ter is-size-6">常用js代码片段</a>
+                    <a href="/2018/02/19/2018-02-19-Mint UI踩坑之路/" class="has-link-black-ter is-size-6">Mint UI 踩坑之路</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -626,7 +569,7 @@ Vue.prototype.$messagebox = MessageBox
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
-                    <a href="/2018/02/19/2018-02-19-Mint UI踩坑之路/" class="has-link-black-ter is-size-6">Mint UI 踩坑之路</a>
+                    <a href="/2018/02/19/2018-02-19-常用代码片段/" class="has-link-black-ter is-size-6">常用js代码片段</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
@@ -652,7 +595,7 @@ Vue.prototype.$messagebox = MessageBox
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
-                    <a href="/2018/02/19/2018-02-19-常用代码片段/" class="has-link-black-ter is-size-6">常用js代码片段</a>
+                    <a href="/2018/02/19/2018-02-19-Mint UI踩坑之路/" class="has-link-black-ter is-size-6">Mint UI 踩坑之路</a>
                     <p class="is-size-7 is-uppercase">
                         
                     </p>
