@@ -2,18 +2,23 @@
 <html>
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Archives: 2017 - Y-Cwei</title>
+<title>node.js学习笔记之入门 - Y-Cwei</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Y-Cwei">
-<meta property="og:url" content="http://yoursite.com/archives/2017/index.html">
+    <meta name="description" content="1. Node.js介绍1.1 Node.js是什么？ Node.js® is a JavaScript runtime built on Chrome’s V8 JavaScript engine. node.js 不是一门语言 node.js 不是库，不是框架 node.js 是一个javascript运行时环境 简单来讲，Node.js可以解析和执行js代码">
+<meta name="keywords" content="Node.js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node.js学习笔记之入门">
+<meta property="og:url" content="http://yoursite.com/2019/04/15/node-js学习笔记之入门-md/index.html">
 <meta property="og:site_name" content="Y-Cwei">
+<meta property="og:description" content="1. Node.js介绍1.1 Node.js是什么？ Node.js® is a JavaScript runtime built on Chrome’s V8 JavaScript engine. node.js 不是一门语言 node.js 不是库，不是框架 node.js 是一个javascript运行时环境 简单来讲，Node.js可以解析和执行js代码">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-15T13:53:37.209Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Y-Cwei">
+<meta name="twitter:title" content="node.js学习笔记之入门">
+<meta name="twitter:description" content="1. Node.js介绍1.1 Node.js是什么？ Node.js® is a JavaScript runtime built on Chrome’s V8 JavaScript engine. node.js 不是一门语言 node.js 不是库，不是框架 node.js 是一个javascript运行时环境 简单来讲，Node.js可以解析和执行js代码">
 
 
 
@@ -85,7 +90,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo_title.png" alt="Y-Cwei" height="28">
+                <img src="/images/logo_title.png" alt="node.js学习笔记之入门" height="28">
             
             </a>
         </div>
@@ -128,46 +133,152 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
-
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="tag is-link">
-        2017
-        </h3>
-        <div class="timeline">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
         
-            <article class="media">
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-04-15T12:51:35.000Z">2019-04-15</time>
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2017-08-05T11:13:13.000Z">2017-08-05</time>
-                        <a href="/2017/08/05/2017-08-05-javascript基础之字符串操作/" class="has-link-black-ter is-size-6">js对字符串的操作</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2017-08-05T11:13:13.000Z">2017-08-05</time>
-                        <a href="/2017/08/05/2017-08-05-javascript基础之数组的操作/" class="has-link-black-ter is-size-6">javascript基础</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
+                
+            </div>
         </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                node.js学习笔记之入门
+            
+        </h1>
+        <div class="content">
+            <h3 id="1-Node-js介绍"><a href="#1-Node-js介绍" class="headerlink" title="1. Node.js介绍"></a>1. Node.js介绍</h3><h4 id="1-1-Node-js是什么？"><a href="#1-1-Node-js是什么？" class="headerlink" title="1.1 Node.js是什么？"></a>1.1 Node.js是什么？</h4><ul>
+<li>Node.js® is a JavaScript runtime built on Chrome’s V8 JavaScript engine.<ul>
+<li>node.js 不是一门语言</li>
+<li>node.js 不是库，不是框架</li>
+<li>node.js 是一个javascript运行时环境</li>
+<li>简单来讲，Node.js可以解析和执行js代码<a id="more"></a></li>
+<li>以前只有浏览器可以解析之行javascript代码</li>
+<li>也就是说现在的javascript可以完全脱离浏览器来运行，一切都归功于Node.js</li>
+<li>构建于 Chrome 的 V8 引擎之上<ul>
+<li>代码只是具有特定格式的字符串而已</li>
+<li>引擎可以认识它，可以帮你去解析和执行</li>
+<li>Google Chrome 的 V8 引擎是目前公认解析 JavaScript 最快的</li>
+<li>Node.js 之所以很快的原因之一是：Node.js的作者，将Google Chrome 中的 V8 引擎移植了出来，开发了一个独立的 javaScript 运行时环境</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Node.js uses an event-driven, non-blockling I/O model that makes it leightweight and efficient</p>
+<ul>
+<li>event-driven 时间驱动</li>
+<li>non-blocking I/O model 非阻塞I/O模型（异步）</li>
+<li>lightweidht and efficient 轻量和高效</li>
+</ul>
+</li>
+<li><p>Node.js package ecosystem, npm is the largest ecosystem of open source libraiies in the word</p>
+<ul>
+<li>npm 是世界上最大的开源生态系统</li>
+<li>绝大多数的javascript相关的包都放在了npm上，这样做的目的是让开发人员更方便的去开发使用它</li>
+<li><code>npm install jquery</code>  </li>
+</ul>
+</li>
+</ul>
+<h4 id="1-2-浏览器中的js和Node-js中的js的区别"><a href="#1-2-浏览器中的js和Node-js中的js的区别" class="headerlink" title="1.2     浏览器中的js和Node.js中的js的区别"></a>1.2     浏览器中的js和Node.js中的js的区别</h4><ul>
+<li>浏览器中的javascript<ul>
+<li>EcmaScript<ul>
+<li>基本语法</li>
+<li>if</li>
+<li>var</li>
+<li>function</li>
+<li>Object</li>
+<li>Array</li>
+</ul>
+</li>
+<li>BOM</li>
+<li>DOM</li>
+</ul>
+</li>
+<li>Node.js中的javascript<ul>
+<li>没有BOM,DOM(浏览器不操作BOM,DOM)</li>
+<li>EcmaScript</li>
+<li>在Node这个javaScript执行环境中为javaScript提供了一些服务器级别的操作API<ul>
+<li>例如文件的读写</li>
+<li>网络服务的构建</li>
+<li>网络通信</li>
+<li>http服务器</li>
+<li>等的处理…</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Node-js/">Node.js</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
+        <div class="buttons is-centered">
+            
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
+
+<div class="notification is-danger">
+    You forgot to set the <code>business</code> and <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>url</code> Patreon. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/03/28/vue学习笔记之vuex状态管理-md/">
+                <span class="level-item">vue学习笔记之vuex状态管理</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
     </div>
 </div>
 
@@ -811,7 +922,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo_title.png" alt="Y-Cwei" height="28">
+                    <img src="/images/logo_title.png" alt="node.js学习笔记之入门" height="28">
                 
                 </a>
                 <p class="is-size-7">

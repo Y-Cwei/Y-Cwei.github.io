@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Y-Cwei">
 <meta property="og:description" content="1. 使用 vue-resource 发送get、 post、 jsonp请求 官方已不再维护  github提供的vue-ersource请求测试地址  使用 vue-resource 发送 get 请求">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-20T14:34:30.694Z">
+<meta property="og:updated_time" content="2019-03-24T15:30:15.250Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue发送get post jsonp请求">
 <meta name="twitter:description" content="1. 使用 vue-resource 发送get、 post、 jsonp请求 官方已不再维护  github提供的vue-ersource请求测试地址  使用 vue-resource 发送 get 请求">
@@ -170,23 +170,25 @@
 })
 </code></pre><ul>
 <li><p>使用 vue-resource 发送 post 请求</p>
-<p>  this.$http.post(‘/someUrl’, {body}, {config}).then(response =&gt; {</p>
-<pre><code>// 默认发起的 post 请求，默认没有表单格式，所以有的服务器处理不了
-// 通过查阅文档发现，通过 post 方法的第三个参数，{ emulateJSON：true }设置提交的内容为普通表单数据格式
-console.log(response.body)
-</code></pre><p>  }, error =&gt; {</p>
-<pre><code>// error callback
-</code></pre><p>  })</p>
-</li>
+<pre><code>this.$http.post(&apos;/someUrl&apos;, {body}, {config}).then(response =&gt; {
+    // 默认发起的 post 请求，默认没有表单格式，所以有的服务器处理不了
+    // 通过查阅文档发现，通过 post 方法的第三个参数，{ emulateJSON：true }设置提交的内容为普通表单数据格式
+    console.log(response.body)
+
+}, error =&gt; {
+    // error callback
+})
+</code></pre></li>
 </ul>
 <ul>
 <li><p>使用 vue-resource 发送 jsonp 请求</p>
-<p>  this.$http.jsonp(‘/someUrl’, {config}).then(response =&gt; {</p>
-<pre><code>console.log(response.body)
-</code></pre><p>  }, error =&gt; {</p>
-<pre><code>// error callback
-</code></pre><p>  })</p>
-</li>
+<pre><code>this.$http.jsonp(&apos;/someUrl&apos;, {config}).then(response =&gt; {
+    console.log(response.body)
+
+}, error =&gt; {
+    // error callback
+})
+</code></pre></li>
 </ul>
 
         </div>
@@ -247,16 +249,16 @@ console.log(response.body)
     <div class="level post-navigation is-flex-wrap is-mobile">
         
         <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2018/02/19/2018-02-19-Mint UI踩坑之路/">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2018/02/12/2018-02-12-vue学习笔记之自定义按键修饰符/">
                 <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">Mint UI 踩坑之路</span>
+                <span class="level-item">自定义按键修饰符</span>
             </a>
         </div>
         
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2018/02/12/2018-02-12-vue学习笔记之自定义按键修饰符/">
-                <span class="level-item">自定义按键修饰符</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2018/02/12/2018-02-12-vue学习笔记之自定义全局和私有指令/">
+                <span class="level-item">自定义全局/私有指令</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -308,17 +310,17 @@ console.log(response.body)
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        13
+                        16
                     </p>
                 </div>
             </div>
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        Categories
+                        Category
                     </p>
                     <p class="title has-text-weight-normal">
-                        0
+                        1
                     </p>
                 </div>
             </div>
@@ -328,7 +330,7 @@ console.log(response.body)
                         Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        4
+                        9
                     </p>
                 </div>
             </div>
@@ -391,7 +393,15 @@ console.log(response.body)
                 Categories
             </h3>
             <ul class="menu-list">
-            
+            <li>
+        <a class="level is-marginless" href="/categories/vue/">
+            <span class="level-start">
+                <span class="level-item">vue</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li>
             </ul>
         </div>
     </div>
@@ -403,7 +413,7 @@ console.log(response.body)
         <h3 class="menu-label">
             Tag Cloud
         </h3>
-        <a href="/tags/Mint-UI/" style="font-size: 10px;">Mint UI</a> <a href="/tags/charles/" style="font-size: 10px;">charles</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a>
+        <a href="/tags/Mint-UI/" style="font-size: 10px;">Mint UI</a> <a href="/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/tags/charles/" style="font-size: 10px;">charles</a> <a href="/tags/get/" style="font-size: 10px;">get</a> <a href="/tags/js/" style="font-size: 15px;">js</a> <a href="/tags/post/" style="font-size: 10px;">post</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a> <a href="/tags/vue-node/" style="font-size: 10px;">vue-node</a> <a href="/tags/vuex/" style="font-size: 10px;">vuex</a>
     </div>
 </div>
 
@@ -417,6 +427,45 @@ console.log(response.body)
         <h3 class="menu-label">
             Recent
         </h3>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-15T12:51:35.000Z">2019-04-15</time></div>
+                    <a href="/2019/04/15/node-js学习笔记之入门-md/" class="has-link-black-ter is-size-6">node.js学习笔记之入门</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-28T13:43:36.000Z">2019-03-28</time></div>
+                    <a href="/2019/03/28/vue学习笔记之vuex状态管理-md/" class="has-link-black-ter is-size-6">vue学习笔记之vuex状态管理</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/vue/">vue</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-24T14:43:48.000Z">2019-03-24</time></div>
+                    <a href="/2019/03/24/vue-node-md/" class="has-link-black-ter is-size-6">vue-node.md</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/vue/">vue</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -444,45 +493,6 @@ console.log(response.body)
             </div>
         </article>
         
-        <article class="media">
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
-                    <a href="/2018/02/19/2018-02-19-常用代码片段/" class="has-link-black-ter is-size-6">常用js代码片段</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
-                    <a href="/2018/02/19/2018-02-19-charles连接手机抓包/" class="has-link-black-ter is-size-6">charles连接手机抓包</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
-                    <a href="/2018/02/19/2018-02-19-Mint UI踩坑之路/" class="has-link-black-ter is-size-6">Mint UI 踩坑之路</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -496,12 +506,23 @@ console.log(response.body)
         <ul class="menu-list">
         
         <li>
+            <a class="level is-marginless" href="/archives/2019/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
             <a class="level is-marginless" href="/archives/2019/03/">
                 <span class="level-start">
                     <span class="level-item">March 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">1</span>
+                    <span class="level-item tag">3</span>
                 </span>
             </a>
         </li>
@@ -571,8 +592,22 @@ console.log(response.body)
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/Node-js/">
+                        <span class="tag">Node.js</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/charles/">
                         <span class="tag">charles</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/get/">
+                        <span class="tag">get</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -585,9 +620,30 @@ console.log(response.body)
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/post/">
+                        <span class="tag">post</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/vue/">
                         <span class="tag">vue</span>
-                        <span class="tag is-grey">5</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue-node/">
+                        <span class="tag">vue-node</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vuex/">
+                        <span class="tag">vuex</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
@@ -618,6 +674,45 @@ console.log(response.body)
             
             <div class="media-content">
                 <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-04-15T12:51:35.000Z">2019-04-15</time></div>
+                    <a href="/2019/04/15/node-js学习笔记之入门-md/" class="has-link-black-ter is-size-6">node.js学习笔记之入门</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-28T13:43:36.000Z">2019-03-28</time></div>
+                    <a href="/2019/03/28/vue学习笔记之vuex状态管理-md/" class="has-link-black-ter is-size-6">vue学习笔记之vuex状态管理</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/vue/">vue</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-24T14:43:48.000Z">2019-03-24</time></div>
+                    <a href="/2019/03/24/vue-node-md/" class="has-link-black-ter is-size-6">vue-node.md</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/vue/">vue</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-17T11:13:13.000Z">2019-03-17</time></div>
                     <a href="/2019/03/17/2019-03-17-hello-md/" class="has-link-black-ter is-size-6">hello</a>
                     <p class="is-size-7 is-uppercase">
@@ -640,45 +735,6 @@ console.log(response.body)
             </div>
         </article>
         
-        <article class="media">
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
-                    <a href="/2018/02/19/2018-02-19-常用代码片段/" class="has-link-black-ter is-size-6">常用js代码片段</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
-                    <a href="/2018/02/19/2018-02-19-charles连接手机抓包/" class="has-link-black-ter is-size-6">charles连接手机抓包</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-02-19T11:13:13.000Z">2018-02-19</time></div>
-                    <a href="/2018/02/19/2018-02-19-Mint UI踩坑之路/" class="has-link-black-ter is-size-6">Mint UI 踩坑之路</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -692,12 +748,23 @@ console.log(response.body)
         <ul class="menu-list">
         
         <li>
+            <a class="level is-marginless" href="/archives/2019/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
             <a class="level is-marginless" href="/archives/2019/03/">
                 <span class="level-start">
                     <span class="level-item">March 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">1</span>
+                    <span class="level-item tag">3</span>
                 </span>
             </a>
         </li>
@@ -767,8 +834,22 @@ console.log(response.body)
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/Node-js/">
+                        <span class="tag">Node.js</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/charles/">
                         <span class="tag">charles</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/get/">
+                        <span class="tag">get</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -781,9 +862,30 @@ console.log(response.body)
                 </div>
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/post/">
+                        <span class="tag">post</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/vue/">
                         <span class="tag">vue</span>
-                        <span class="tag is-grey">5</span>
+                        <span class="tag is-grey">6</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue-node/">
+                        <span class="tag">vue-node</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vuex/">
+                        <span class="tag">vuex</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
