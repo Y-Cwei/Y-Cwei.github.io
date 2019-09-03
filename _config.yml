@@ -4,11 +4,11 @@
 
 # Site
 title: Y-Cwei
-subtitle:
+subtitle: 将来的你，一定会感谢现在拼命的自己
 description:
 keywords:
 author: Y-Cwei
-language:
+language: zh-CN
 timezone:
 
 # URL
@@ -73,7 +73,30 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: icarus
+# theme: icarus
+theme: BlueLake
+
+# 搜索
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: true
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: false
+    tags: true
+
+local_search: true
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
