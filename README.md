@@ -7,7 +7,7 @@
 2. 下载依赖
 
 		$ npm install hexo-renderer-jade@0.3.0 --save
-$ npm install hexo-renderer-stylus --save
+		$ npm install hexo-renderer-stylus --save
 
 3. 添加本地搜索
 
