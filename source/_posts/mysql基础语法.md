@@ -1,5 +1,5 @@
 ---
-title: mysql基础语法.md
+title: mysql基础语法
 date: 2019-09-03 17:32:15
 tags: mysql
 ---
