@@ -48,7 +48,7 @@ tags: vue
 + 进入项目主目录： cd yourprojectname 
 + 下载安装所需依赖： npm install 
 + 启动程序： npm start 
-> 注： 当命令行出现 node ./bin/www 证明程序已经开始启动，稍等不报错即可通过http://localhost:3000来访问当前项目public目录下的index.html文件，但开发者似无感知，可通过修改bin/www文件来给开发者一个成功启动程序的日志提示，修改方式如下：  
+> 注： 当命令行出现 node ./bin/www 证明程序已经开始启动，稍等不报错即可通过 http://localhost:3000 来访问当前项目public目录下的index.html文件，但开发者似无感知，可通过修改bin/www文件来给开发者一个成功启动程序的日志提示，修改方式如下：  
 
 		// server.listen(port);
 		server.listen(port,function(){
