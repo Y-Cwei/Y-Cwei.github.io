@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><link rel="stylesheet" type="text/css" href="//fonts.loli.net/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style-dark.css?v=2.0.4"><link rel="stylesheet" type="text/css" href="/css/highlight-dark.css?v=2.0.4"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><title>自定义全局/私有指令 | Y-Cwei</title></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">自定义全局/私有指令</h1><a id="logo" href="/.">Y-Cwei</a><p class="description">将来的你，一定会感谢现在拼命的自己</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">自定义全局/私有指令</h1><div class="post-meta"><a href="/2018/02/12/2018-02-12-vue学习笔记之自定义全局和私有指令/#comments" class="comment-count"></a><p><span class="date">Feb 12, 2018</span><span><i id="busuanzi_container_page_pv"><i id="busuanzi_value_page_pv"></i><i>点击</i></i></span></p></div><div class="post-content"><h4 id="自定义全局-私有指令"><a href="#自定义全局-私有指令" class="headerlink" title="自定义全局/私有指令"></a>自定义全局/私有指令</h4><p><a href="https://cn.vuejs.org/v2/guide/custom-directive.html" target="_blank" rel="noopener">语法</a>：</p>
+<blockquote>
+<p>全局指令： Vue.directive(‘xxx’, {})</p>
+<p>私有指令： directives: {‘xxx’, {}}</p>
+</blockquote>
+<a id="more"></a>
+<ol>
+<li><p>在 main.js 中使用  <code>Vue.directive(&#39;xxx&#39;, {})</code> 定义全局指令，此方法接受两个参数</p>
+<ul>
+<li>参数1： 指令的名称； <ul>
+<li><strong>注意：</strong>在定义的时候，指令的名称前面，不需要加 <code>v-</code> 前缀，但在调用的时候，必须在指令名称前加上 <code>v-</code> 前缀来进行使用</li>
+</ul>
+</li>
+<li><p>参数2： 一个对象，这个对象上，有一些指令相关的函数，这些函数可以在特定的阶段，执行相关的操作，对应的函数如下（自定义获取焦点的指令）：</p>
+<pre><code>Vue.directive(&apos;focus&apos;, {
+    bind: el =&gt; {    
+        // 每当指令绑定到元素上时，会立即触发这个bind函数，只执行一次
+        // 在元素刚绑定了指令的时候，还没有插入到DOM中去，这时候，调用操作DOM的方法，并不生效，故在此调用 el.focus()，并不生效
+        // 因为一个元素只有在插入DOM之后，才能获取焦点
+        el.focus() // 不生效
+    },
+    inserted: el =&gt; {
+        // 该方法表示元素插入到DOM中的时候，会执行inserted函数，同样只执行一次
+        el.focus() // 此处调用操作DOM的方法生效，因为元素已经插入到DOM树中
+    },
+    updated: el =&gt; {
+        // 当VNode更新时，会触发updated方法，该方法会触发多次
+    }
+})
+</code></pre><blockquote>
+<p>注意：</p>
+<ul>
+<li>在每个函数中，第一个参数，永远是 <code>el</code> ,表示被绑定了指令的那个元素，这个 <code>el</code> 参数，是一个原生的js对象，可调用原生的js方法</li>
+<li>和样式相关的操作，在bind中写，和行为相关的，在inserted中写，因为诸如el.style.color = “red”设置的内联样式来说，最终都要插入到页面中去</li>
+</ul>
+</blockquote>
+<p>  当自定义好全局指令后，可直接在标签内使用 <code>v-xxx</code> 绑定指令</p>
+<pre><code>&lt;input type=&quot;text&quot; v-foucs /&gt;
+</code></pre></li>
+</ul>
+</li>
+<li><p>如果想注册局部指令，组件中接受一个 <code>directives</code> （带s）的选项</p>
+<pre><code>directives: {
+    focus: {
+        bind: el =&gt; {
+
+        },
+        inserted: el =&gt; {
+
+        },
+        updated: el =&gt; {
+
+        }
+    }
+}
+
+// 然后可以在模板中任何元素上使用新的 v-focus 属性，如下：
+&lt;input type=&quot;text&quot; v-focus /&gt;
+</code></pre></li>
+<li><p><a href="https://cn.vuejs.org/v2/guide/custom-directive.html#%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0" target="_blank" rel="noopener">点此查看钩子函数对应的其它参数</a></p>
+<pre><code>// 如有需求：动态的修改输入框字体的颜色，可自定义 color 指令
+Vue.directive(&apos;color&apos;, {
+    bind: (el, binding) =&gt; {
+        el.style.color = binding.value
+    }
+})
+
+// 指定按如下方式绑定，注意参数需带引号，否则为变量，会去data中查值
+&lt;input type=&quot;text&quot; v-color=&quot;&apos;red&apos;&quot; /&gt; // 输入框为红色字体
+&lt;input type=&quot;text&quot; v-color=&quot;&apos;blue&apos;&quot; /&gt; // 输入框为蓝色字体
+</code></pre><blockquote>
+<p>注意：指令的绑定，遵从就近原则，意：当某一指令，在全局和局部都有自定义时，优先绑定局部指令</p>
+</blockquote>
+</li>
+<li><p>自定义指令函数的简写</p>
+</li>
+</ol>
+<p><a href="https://cn.vuejs.org/v2/guide/custom-directive.html#%E5%87%BD%E6%95%B0%E7%AE%80%E5%86%99" target="_blank" rel="noopener">语法</a>:</p>
+<blockquote>
+<p>在很多时候，你可能想在 bind 和 update 时触发相同行为，而不关心其它的钩子。比如这样写:</p>
+<p>Vue.directive(‘xxx’, function (el, binding) {})</p>
+</blockquote>
+<pre><code>// 自定义修改字体大小的指令
+// 全局指令
+Vue.directive(&apos;fontsize&apos;, (el, binding) =&gt; {
+    el.style.fontSize = parseInt(binding.value) + &apos;px&apos;
+})
+// 私有指令
+directives: {
+    fontsize: (el, binding) =&gt; {
+        el.style.fontSize = parseInt(binding.value) + &apos;px&apos;
+    }
+}
+
+// 使用
+&lt;input type=&quot;text&quot; v-fontsize=&quot;50&quot; /&gt;
+&lt;input type=&quot;text&quot; v-fontsize=&quot;&apos;50px&apos;&quot; /&gt;
+</code></pre></div><div class="post-copyright"><blockquote><p>原文作者: Y-Cwei</p><p>原文链接: <a href="https://github.com/Y-Cwei/Y-Cwei.github.io/tree/master/2018/02/12/2018-02-12-vue学习笔记之自定义全局和私有指令/">https://github.com/Y-Cwei/Y-Cwei.github.io/tree/master/2018/02/12/2018-02-12-vue学习笔记之自定义全局和私有指令/</a></p><p>版权声明: 转载请注明出处(必须保留作者署名及链接)</p></blockquote></div><div class="tags"><a href="/tags/vue/">vue</a></div><div class="post-share"><div class="social-share"><span>分享到:</span></div></div><div class="post-nav"><a href="/2018/02/12/2018-02-12-vue学习笔记之自定义按键修饰符/" class="pre">自定义按键修饰符</a><a href="/2018/02/12/2018-02-12-vue学习笔记之如何发送get post jsonp请求/" class="next">vue发送get post jsonp请求</a></div><div id="comments"></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">文章目录</i></div><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义全局-私有指令"><span class="toc-text">自定义全局/私有指令</span></a></li></ol></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/09/05/vue-webpack打包上线配置修改/">vue+webpack打包上线配置修改</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/04/JDBC/">JDBC</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/04/mysql之事务/">mysql之事务</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/03/mysql基础语法/">mysql基础语法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/15/java基本语法-md/">java基本语法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/10/java基础-md/">java基础入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/15/node-js学习笔记之入门-md/">node.js学习笔记之入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/28/vue学习笔记之vuex状态管理-md/">vue学习笔记之vuex状态管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/24/vue-node-md/">vue-node.md</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/2019-01-11-前后端交互之跨域问题-md/">前后端交互之跨域问题</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-gui"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/vue/">vue</a><span class="category-list-count">2</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="/tags/JDBC/" style="font-size: 15px;">JDBC</a> <a href="/tags/js/" style="font-size: 15px;">js</a> <a href="/tags/Mint-UI/" style="font-size: 15px;">Mint UI</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/charles/" style="font-size: 15px;">charles</a> <a href="/tags/JAVA/" style="font-size: 15px;">JAVA</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/Node-js/" style="font-size: 15px;">Node.js</a> <a href="/tags/vue-node/" style="font-size: 15px;">vue-node</a> <a href="/tags/get/" style="font-size: 15px;">get</a> <a href="/tags/post/" style="font-size: 15px;">post</a> <a href="/tags/vuex/" style="font-size: 15px;">vuex</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-archive"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-you"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">网站地图</a> |  <a href="/atom.xml">订阅本站</a> |  <a href="/about/">联系博主</a></p><p>本站总访问量：<i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>次，本站总访客数:<i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>人</p><p><span> Copyright &copy;<a href="/." rel="nofollow">Y-Cwei.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span><span> Count by<a href="http://busuanzi.ibruce.info/"> busuanzi.</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span></p></div></div></div><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script type="text/javascript" src="/js/search.json.js?v=2.0.4"></script><script type="text/javascript" src="/js/toctotop.js?v=2.0.4" async></script><link rel="stylesheet" type="text/css" href="/share/css/share.css"><script type="text/javascript" src="/share/js/social-share.js" charset="utf-8"></script><script type="text/javascript" src="/share/js/qrcode.js" charset="utf-8"></script></body></html>
