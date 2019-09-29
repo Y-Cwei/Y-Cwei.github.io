@@ -66,3 +66,13 @@ tags: vue
 	  })
 	})	
 	
+#### 3.axios设置请求超时,弹窗提示
+
+	axios.defaults.timeout = 10 * 1000
+	axios.interceptors.response.use(undefined, error => {
+	  var originalRequest = error.config
+	  if (error.code === 'ECONNABORTED' && error.message.indexOf('timeout') !== -1 && !originalRequest._retry) {
+	    MessageBox.alert('网络请求超时,请稍后进行尝试', '移动OA提示')
+	  }
+	})	
+	
