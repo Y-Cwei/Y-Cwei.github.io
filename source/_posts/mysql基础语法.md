@@ -99,7 +99,7 @@ tags: mysql
 + 创建数据库 `create database [if not exists] database_name;`  
 如果数据库存在，创建会报错，加一个判断，当数据库不存在的时候再创建
 
-		ysql> create database if not exists `mydb`;
+		ysql> create database if not exists mydb;
 		Query OK, 1 row affected, 1 warning (0.00 sec)
 		 
 		mysql> show databases;
@@ -216,9 +216,9 @@ tags: mysql
 INT 整数类型  
 VARCHAR 变长字符，参数为最大字符限制  
 
-		mysql> create table `tb1`(
-		    -> `id` INT,
-		    -> `name` VARCHAR(20)
+		mysql> create table tb1(
+		    -> id INT,
+		    -> name VARCHAR(20)
 		    -> );
 		Query OK, 0 rows affected (0.02 sec)
 		 
@@ -229,12 +229,12 @@ VARCHAR 变长字符，参数为最大字符限制
 
 + 查看表信息 `show create table (table_name) [\G];`
 	
-		mysql> show create table `tb1` \G
+		mysql> show create table tb1 \G
 		*************************** 1. row ***************************
 		       Table: tb1
-		Create Table: CREATE TABLE `tb1` (
-		  `id` int(11) DEFAULT NULL,
-		  `name` varchar(20) DEFAULT NULL
+		Create Table: CREATE TABLE tb1 (
+		  id int(11) DEFAULT NULL,
+		  name varchar(20) DEFAULT NULL
 		) ENGINE=MyISAM DEFAULT CHARSET=utf8
 		1 row in set (0.00 sec)
 		 
@@ -256,11 +256,11 @@ VARCHAR 变长字符，参数为最大字符限制
 
 + 修改表结构 `alter table tb1 add age INT;`
 		  
-			mysql> alter table `tb1` add `age` INT;
+			mysql> alter table tb1 add age INT;
 			Query OK, 0 rows affected (0.02 sec)
 			Records: 0  Duplicates: 0  Warnings: 0
 			
-			mysql> desc `tb1`;
+			mysql> desc tb1;
 			+-------+-------------+------+-----+---------+-------+
 			| Field | Type        | Null | Key | Default | Extra |
 			+-------+-------------+------+-----+---------+-------+
@@ -278,11 +278,11 @@ VARCHAR 变长字符，参数为最大字符限制
 + 修改列名称 `alter table table1 change name user_name varchar(10) not null;`  
 指定位置添加
 		
-		mysql> alter table `tb1` add `gender` char(1) after `name`;
+		mysql> alter table tb1 add gender char(1) after name;
 		Query OK, 0 rows affected (0.02 sec)
 		Records: 0  Duplicates: 0  Warnings: 0
 		 
-		mysql> desc `tb1`;
+		mysql> desc tb1;
 		+--------+-------------+------+-----+---------+-------+
 		| Field  | Type        | Null | Key | Default | Extra |
 		+--------+-------------+------+-----+---------+-------+
@@ -297,7 +297,7 @@ VARCHAR 变长字符，参数为最大字符限制
 
 + 添加多列
 		
-		mysql> alter table `tb1` add(`aaa` int, `bb` int, `cc` int);
+		mysql> alter table tb1 add(aaa int, bb int, cc int);
 		Query OK, 0 rows affected (0.01 sec)
 		Records: 0  Duplicates: 0  Warnings: 0
 		 
@@ -320,12 +320,12 @@ VARCHAR 变长字符，参数为最大字符限制
 
 + 删除数据表结构 `alter table (table_name) drop '(column_name)';`
 
-		mysql> alter table `tb1` drop `aa`;
+		mysql> alter table tb1 drop aa;
 		ERROR 1091 (42000): Can't DROP 'aa'; check that column/key exists
-		mysql> alter table `tb1` drop `aaa`;
+		mysql> alter table tb1 drop aaa;
 		Query OK, 0 rows affected (0.00 sec)
 		Records: 0  Duplicates: 0  Warnings: 0
-		mysql> desc `tb1`;
+		mysql> desc tb1;
 		+--------+-------------+------+-----+---------+-------+
 		| Field  | Type        | Null | Key | Default | Extra |
 		+--------+-------------+------+-----+---------+-------+
@@ -342,7 +342,7 @@ VARCHAR 变长字符，参数为最大字符限制
 
 + 删除多列 `alter table (table_name) drop bb,drop cc;`
 
-		mysql> alter table `tb1` drop `bb`,drop `cc`;
+		mysql> alter table tb1 drop bb,drop cc;
 		Query OK, 0 rows affected (0.01 sec)
 		Records: 0  Duplicates: 0  Warnings: 0
 		 
@@ -360,17 +360,17 @@ VARCHAR 变长字符，参数为最大字符限制
 
 + 向数据表中添加数据 `insert [INTO] (table_name) (column1,column2) values (value1,value2)`
 		
-		mysql> insert into `tb1` values(1,'rose','m',18);
+		mysql> insert into tb1 values(1,'rose','m',18);
 		Query OK, 1 row affected (0.00 sec)
 
 
 + 一次添加多行数据
 
-		mysql> insert into `tb1` (`id`,`name`) values (2,'zhangsan'),(3,'lisi');
+		mysql> insert into tb1 (id,name) values (2,'zhangsan'),(3,'lisi');
 		Query OK, 2 rows affected (0.00 sec)
 		Records: 2  Duplicates: 0  Warnings: 0
 		 
-		mysql> select * from `tb1`;
+		mysql> select * from tb1;
 		+------+----------+--------+------+
 		| id   | name     | gender | age  |
 		+------+----------+--------+------+
@@ -385,7 +385,7 @@ VARCHAR 变长字符，参数为最大字符限制
 
 + 通过set添加数据
 	
-		insert into `tb1` name='zhangsan',age=30;
+		insert into tb1 name='zhangsan',age=30;
 
 
 + 更新数据
@@ -399,7 +399,7 @@ VARCHAR 变长字符，参数为最大字符限制
 
 
 ### 查看数据表中的数据
-> select * from `tb1`;
+> select * from tb1;
 
 + 查询指定列
 
