@@ -48,16 +48,7 @@ JDBC API是一系列的接口，它统一和规范了应用程序与数据库的
 #### 1. 引入JDBC驱动程序  
 
 驱动程序由数据库提供商提供下载。 [点击下载MySQL的驱动下载](http://dev.mysql.com/downloads/)
-如何在Java Project项目应用中添加数据库驱动jar：
-
-
-
-
-
-
-
-
-
+如何在Java Project项目应用中添加数据库驱动jar：  
 代码如下：  
 
 	public class JDBCDemo {
@@ -85,3 +76,4 @@ JDBC API是一系列的接口，它统一和规范了应用程序与数据库的
 		}
 	}
 
+## 

@@ -472,5 +472,28 @@ VARCHAR 变长字符，参数为最大字符限制
 		start transaction 开始事务
 		commit 提交事务
 		rollback 回滚事务，放弃修改
+		
+		
+---	
+
+### mysql常见问题
+#### 1. insert into 插入报错
+执行 `insert into 数据表名 (列1,列2) values("列1要插入的值","列2要插入的值");` 命令,报错,报错信息如下:  
+![insert into报错信息](/img/mysql/api/01.png)  
+出现此问题原因为已建立的表无法插入中文字符串  
+使用 `show create table 表名` 查询创建表信息命令查询可知,表默认的字符编码为latin1字符集,查询结果如下   
+![show create table 表名](/img/mysql/api/02.png)    
+或者使用 `show full fields from 表名; ` 查询表详细信息,查询结果如下:  
+![show full fields 表名](/img/mysql/api/03.png)  
+因为数据表中的内容为latin1字符集，查询资料可知，latin1字符集为8bit，这说明它是不能表示中文的，故而当然会报改错：  
+
+**解决方法如下:**  
+修改字段的字符集,将其修改为 utf8 字符集即可;修改字段的字符集语法为 `alter table 表名 change 列名 列名 列类型 character set utf8; `,如下:  
+![修改字符集](/img/mysql/api/04.png)  
+如上修改之后,在执行 `insert into ...` 插入命令即可;
+
+> 扩展:  
+> 1. 修改数据库字符集命令 `alter database 数据库名 character set utf8;`.   
+> 2. 修改数据表字符集命令 `alter table 数据表名 character set utl8;` 
 
 
