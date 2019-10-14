@@ -43,37 +43,73 @@ JDBC API是一系列的接口，它统一和规范了应用程序与数据库的
 如图所示：  
 ![JDBC程序编写步骤](/img/mysql/04.png)  
 
-## 2. 获取数据库连接
+##### 3.1 导入jdbc的jar包
+驱动程序由数据库提供商提供下载。 [点击下载MySQL的驱动下载](http://dev.mysql.com/downloads/)   
+1. 新建lib文件夹,用于存放第三方jar包,将 *mysql-connector-java-5.1.44-bin.jar* jar包粘贴到新建的lib文件夹内   
+![倒入jar包](/img/mysql/jdbc/01.png) 
+2. 选中lib文件夹下的 *mysql-connector-java-5.1.44-bin.jar*包, 右键 Build Path -> Add to Build Path(因为已经创建过,所以此处无 Add to Build Path 按钮)   
+![Build Path](/img/mysql/jdbc/02.png)
+3. 此时根目录下会自动生成一个 Referenced Libraries 目录,内含有小奶瓶状的 *mysql-connector-java-5.1.44-bin.jar*包,即代表导入成功   
+![小奶瓶](/img/mysql/jdbc/03.png)
+4. 准备工作完成,使用jdbc连接操作数据库.
 
-#### 1. 引入JDBC驱动程序  
+##### 3.2 使用jdbc查询数据库数据
+![查询](/img/mysql/jdbc/04.png)
 
-驱动程序由数据库提供商提供下载。 [点击下载MySQL的驱动下载](http://dev.mysql.com/downloads/)
-如何在Java Project项目应用中添加数据库驱动jar：  
-代码如下：  
+##### 3.3 使用jdbc向数据库中添加数据
+![添加](/img/mysql/jdbc/05.png)
 
-	public class JDBCDemo {
-		public static void main(String[] args) throws SQLException{
-			// 1.注册驱动
-			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-			// 2.获取连接对象
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/myemployees", "root", "root");
-			// 3.获取命令对象
-			Statement statement = connection.createStatement();
-			// 4.编写sql语句
-			String sql = "select * from employees where employee_id = 101";
-			// 5.执行sql语句，获取结果集
-			ResultSet resultSet = statement.executeQuery(sql);
-			if (resultSet.next()) {
-				// 6.处理逻辑
-				String firstName = resultSet.getString("first_name");
-				String lastName = resultSet.getString("last_name");
-				System.out.println("first_name:"+firstName+", last_name:"+lastName);
-			}
-			// 8.释放资源
-			resultSet.close();
-			statement.close();
-			connection.close();
-		}
-	}
+##### 3.4 使用jdbc向数据库中删除数据
+![删除](/img/mysql/jdbc/06.png)
 
-## 
+##### 3.5 使用jdbc修改数据库中的数据
+![修改](/img/mysql/jdbc/07.png)
+
+> 注意: excute返回值问题  
+> boolean execute() throws SQLException在此 PreparedStatement 对象中执行 SQL 语句，该语句可以是任何种类的 SQL 语句。一些特别处理过的语句返回多个结果，execute 方法处理这些复杂的语句；executeQuery 和 executeUpdate 处理形式更简单的语句。 execute 方法返回一个 boolean 值，以指示第一个结果的形式。必须调用 getResultSet 或 getUpdateCount 方法来检索结果，并且必须调用 getMoreResults 移动到任何后面的结果返回：如果第一个结果是 ResultSet 对象，则返回 true；如果第一个结果是更新计数或者没有结果，则返回 false，意思就是如果是查询的话返回true，如果是更新或插入的话就返回false了；execute()返回的是一个boolean值,代表两种不同的操作啊,getResultSet()返回的是结果集,而getUpdateCount()返回的是更新的记数。
+
+## 2. JDBC中数据库连接池的使用
+#### 1. 数据库连接池的必要性
+##### 不使用数据库连接池存在的问题:  
+1. 普通的JDBC数据库连接使用 DriverManager 来获取，每次向数据库建立连接的时候都要将 Connection 加载到内存中，再验证IP地址，用户名和密码(得花费0.05s～1s的时间)。需要数据库连接的时候，就向数据库要求一个，执行完成后再断开连接。这样的方式将会消耗大量的资源和时间。数据库的连接资源并没有得到很好的重复利用.若同时有几百人甚至几千人在线，频繁的进行数据库连接操作将占用很多的系统资源，严重的甚至会造成服务器的崩溃。  
+2. 对于每一次数据库连接，使用完后都得断开。否则，如果程序出现异常而未能关闭，将会导致数据库系统中的内存泄漏，最终将导致重启数据库。  
+3. 这种开发不能控制被创建的连接对象数，系统资源会被毫无顾及的分配出去，如连接过多，也可能导致内存泄漏，服务器崩溃。
+为解决传统开发中的数据库连接问题，可以采用数据库连接池技术（connection pool）。  
+
+数据库连接池的基本思想就是为数据库连接建立一个“缓冲池”。预先在缓冲池中放入一定数量的连接，当需要建立数据库连接时，只需从“缓冲池”中取出一个，使用完毕之后再放回去。数据库连接池负责分配、管理和释放数据库连接，它允许应用程序重复使用一个现有的数据库连接，而不是重新建立一个。连接池的最大数据库连接数量限定了这个连接池能占有的最大连接数，当应用程序向连接池请求的连接数超过最大连接数量时，这些请求将被加入到等待队列中。  
+![连接池](/img/mysql/jdbc/08.jpg)
+
+##### 数据库连接池技术的优点：  
+1. 资源重用   
+	由于数据库连接得以重用，避免了频繁创建，释放连接引起的大量性能开销。在减少系统消耗的基础上，另一方面也增加了系统运行环境的平稳性。  
+2. 更快的系统反应速度   
+	数据库连接池在初始化过程中，往往已经创建了若干数据库连接置于连接池中备用。此时连接的初始化工作均已完成。对于业务请求处理而言，直接利用现有可用连接，避免了数据库连接初始化和释放过程的时间开销，从而减少了系统的响应时间
+3. 新的资源分配手段   
+	对于多应用共享同一数据库的系统而言，可在应用层通过数据库连接池的配置，实现某一应用最大可用数据库连接数的限制，避免某一应用独占所有的数据库资源
+4. 统一的连接管理，避免数据库连接泄露  
+	在较为完善的数据库连接池实现中，可根据预先的占用超时设定，强制回收被占用连接，从而避免了常规数据库连接操作中可能出现的资源泄露
+	
+#### 2. 多种开源的数据库连接池
+JDBC 的数据库连接池使用 javax.sql.DataSource 来表示，DataSource 只是一个接口，该接口通常由服务器(Weblogic, WebSphere, Tomcat)提供实现，也有一些开源组织提供实现：  
+1. DBCP 是Apache提供的数据库连接池，速度相对c3p0较快，但因自身存在BUG，Hibernate3已不再提供支持   
+2. C3P0 是一个开源组织提供的一个数据库连接池，速度相对较慢，稳定性还可以   
+3. Proxool 是sourceforge下的一个开源项目数据库连接池，有监控连接池状态的功能，稳定性较c3p0差一点   
+4. BoneCP 是一个开源组织提供的数据库连接池，速度快   
+5. Druid 是阿里提供的数据库连接池，据说是集DBCP 、C3P0 、Proxool 优点于一身的数据库连接池，但是速度不知道是否有BoneCP快     
+
+DataSource 通常被称为数据源，它包含连接池和连接池管理两个部分，习惯上也经常把 DataSource 称为连接池  
+注意：  
+1. 数据源和数据库连接不同，数据源无需创建多个，它是产生数据库连接的工厂，因此整个应用只需要一个数据源即可。
+2. 当数据库访问结束后，程序还是像以前一样关闭数据库连接：conn.close(); 但conn.close()并没有关闭数据库的物理连接，它仅仅把数据库连接释放，归还给了数据库连接池。  
+
+#### 3.Druid（德鲁伊）数据源
+ Druid是阿里巴巴开源平台上一个数据库连接池实现，它结合了C3P0、DBCP、Proxool等DB池的优点，同时加入了日志监控，可以很好的监控DB池连接和SQL的执行情况，可以说是针对监控而生的DB连接池，据说是目前最好的连接池。
+ 
+#### 4.使用Druid连接池
+##### 4.1 导入Druid的jar包
+![导入Druid的jar包](/img/mysql/jdbc/08.png)
+##### 4.2 使用Druid连接池
+
+
+
+
