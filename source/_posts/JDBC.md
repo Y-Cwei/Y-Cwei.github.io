@@ -109,7 +109,12 @@ DataSource 通常被称为数据源，它包含连接池和连接池管理两个
 ##### 4.1 导入Druid的jar包
 ![导入Druid的jar包](/img/mysql/jdbc/08.png)
 ##### 4.2 使用Druid连接池
-
-
+###### 4.2.1 代码配置连接
+![代码配置](/img/mysql/jdbc/09.png) 
+###### 4.2.2 使用 `druid.properties` 配置文件
+1. `src/` 下新建 `druid.properties` 文件,内容为
+![druid.properties配置](/img/mysql/jdbc/10.png) 
+2. 使用配置文件连接池连接数据库
+![使用配置文件连接池连接数据库](/img/mysql/jdbc/11.png) 
 
 
