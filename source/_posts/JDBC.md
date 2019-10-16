@@ -68,7 +68,8 @@ JDBC API是一系列的接口，它统一和规范了应用程序与数据库的
 > 注意: excute返回值问题  
 > boolean execute() throws SQLException在此 PreparedStatement 对象中执行 SQL 语句，该语句可以是任何种类的 SQL 语句。一些特别处理过的语句返回多个结果，execute 方法处理这些复杂的语句；executeQuery 和 executeUpdate 处理形式更简单的语句。 execute 方法返回一个 boolean 值，以指示第一个结果的形式。必须调用 getResultSet 或 getUpdateCount 方法来检索结果，并且必须调用 getMoreResults 移动到任何后面的结果返回：如果第一个结果是 ResultSet 对象，则返回 true；如果第一个结果是更新计数或者没有结果，则返回 false，意思就是如果是查询的话返回true，如果是更新或插入的话就返回false了；execute()返回的是一个boolean值,代表两种不同的操作啊,getResultSet()返回的是结果集,而getUpdateCount()返回的是更新的记数。
 
-## 2. JDBC中数据库连接池的使用
+
+## 2.JDBC中数据库连接池的使用
 #### 1. 数据库连接池的必要性
 ##### 不使用数据库连接池存在的问题:  
 1. 普通的JDBC数据库连接使用 DriverManager 来获取，每次向数据库建立连接的时候都要将 Connection 加载到内存中，再验证IP地址，用户名和密码(得花费0.05s～1s的时间)。需要数据库连接的时候，就向数据库要求一个，执行完成后再断开连接。这样的方式将会消耗大量的资源和时间。数据库的连接资源并没有得到很好的重复利用.若同时有几百人甚至几千人在线，频繁的进行数据库连接操作将占用很多的系统资源，严重的甚至会造成服务器的崩溃。  
@@ -112,9 +113,349 @@ DataSource 通常被称为数据源，它包含连接池和连接池管理两个
 ###### 4.2.1 代码配置连接
 ![代码配置](/img/mysql/jdbc/09.png) 
 ###### 4.2.2 使用 `druid.properties` 配置文件
-1. `src/` 下新建 `druid.properties` 文件,内容为
+1. `src/` 下新建 `druid.properties` 文件,内容为  
 ![druid.properties配置](/img/mysql/jdbc/10.png) 
-2. 使用配置文件连接池连接数据库
+2. 使用配置文件连接池连接数据库  
 ![使用配置文件连接池连接数据库](/img/mysql/jdbc/11.png) 
 
+###### 4.2.3 提取连接数据库的方法
+使用druid,每次连接数据库,都要重复一下步骤:  
+1. 加载properties配置文件  
+2. 加载驱动 
+3. 从连接池中获取数据源对象  
+4. 获取连接对象  
+5. 关闭连接    
+五个步骤,故可将此部分复用代码提取到一个工具类中,便于复用  
 
+提取方法:  
+1. src/ 下新建一个名为utils的 Java Project 项目,用于存放工具类方法;  
+2. new Class JDBCUtils 工具类,代码如下:  
+
+
+	package com.richinfo.team.utils;
+	/**
+	 * 工具类:
+	 *   获取连接对象
+	 */
+	import java.io.IOException;
+	import java.io.InputStream;
+	import java.sql.Connection;
+	import java.sql.ResultSet;
+	import java.sql.SQLException;
+	import java.sql.Statement;
+	import java.util.Properties;
+	
+	import javax.sql.DataSource;
+	
+	import com.alibaba.druid.pool.DruidDataSourceFactory;
+	
+	public class JDBCUtils {
+	
+		static DataSource dataSource;
+		static {
+			try {
+				// 1. 加载配置文件
+				Properties properties = new Properties();
+				InputStream inputStream = JDBCUtils.class.getClassLoader().getResourceAsStream("druid.properties");
+				properties.load(inputStream);
+				
+				// 2. 加载驱动
+				String driver = properties.getProperty("driver");
+				Class.forName(driver);
+				
+				// 3. 获取数据源对象
+				dataSource = DruidDataSourceFactory.createDataSource(properties);
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		// 获取连接对象
+		public static Connection getConnection() throws SQLException {
+			return dataSource.getConnection();
+		}
+		// 释放资源
+		public static void close(ResultSet resultSet,Statement statement, Connection connection) {
+			if (resultSet != null) {
+				try {
+					resultSet.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+			}
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+封装好工具类后即可通过工具类获取连接对象	
+1. 新建 JdbcByUtils 测试类,代码如下:
+	
+		package com.rinchinfo.team.moa;
+	
+		import static org.junit.Assert.*;
+		
+		import java.sql.Connection;
+		import java.sql.ResultSet;
+		import java.sql.Statement;
+		
+		import org.junit.Test;
+		
+		import com.richinfo.team.utils.JDBCUtils;
+		
+		public class DruidByUtils {
+	
+			@Test
+			public void testInsert() throws Exception {
+				// 1. 从JDBCUtils工具类里获取连接对象
+				Connection connection = JDBCUtils.getConnection();
+				// 2. 创建命令对象
+				Statement statement = connection.createStatement();
+				// 3.1 编写sql语句
+				String insertSql = "insert into account (uname, pwd) values ('旺旺', 'pwd@999'),('Tom', 'pwd@888')";
+				// 4.1 执行sql语句,获取结果集
+				int resultSet = statement.executeUpdate(insertSql);
+				if (resultSet != 0) {
+					System.out.println("插入成功!");
+				} else {
+					System.out.println("TMD,插入失败了...");
+				}
+				// 3.2 编写查询的sql语句
+				String selectQuery = "select * from account";
+				// 4.2 执行sql语句,获取结果集
+			 	ResultSet resultSet1 = statement.executeQuery(selectQuery);
+			 	while (resultSet1.next()) {
+					String unameString = resultSet1.getString("uname");
+					String pwdString = resultSet1.getString("pwd");
+					System.out.println("姓名: "+unameString+"\t"+"密码: "+pwdString);
+				}
+			 	// 5. 关闭连接
+			 	JDBCUtils.close(resultSet1, statement, connection);
+			}
+		}
+	
+	输出结果如下:
+	插入成功!
+	姓名: 小明	密码: pwd@54321
+	姓名: 小红	密码: pwd@112222222
+	姓名: 旺旺	密码: pwd@999
+	姓名: Tom	密码: pwd@888
+	
+	
+##### 4.3 案例:实现登录功能
+	package com.rinchinfo.team.moa;
+	
+	import static org.junit.Assert.*;
+	
+	import java.sql.Connection;
+	import java.sql.ResultSet;
+	import java.sql.Statement;
+	import java.util.Scanner;
+	
+	import org.junit.Test;
+	
+	import com.richinfo.team.utils.JDBCUtils;
+	
+	public class LoginTest {
+		
+		@Test
+		public void login() throws Exception {
+			// 获取用户输入
+			Scanner scanner = new Scanner(System.in);
+			System.out.println("请输入用户名");
+			String uname = scanner.nextLine();
+			System.out.println("请输入密码");
+			String upwd = scanner.nextLine();
+			Connection connection = null;
+			Statement statement = null;
+			ResultSet resultSet = null;
+			try {
+				connection = JDBCUtils.getConnection();
+				statement = connection.createStatement();
+				String loginSqlString = "select * from account where uname='"+ uname +"' and pwd='"+ upwd +"'";
+				resultSet = statement.executeQuery(loginSqlString);
+				if (resultSet.next()) {
+					System.out.println("登录成功!");
+				} else {
+					System.out.println("登录失败!");
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			} finally {
+				// TODO: handle finally clause
+				JDBCUtils.close(resultSet, statement, connection);
+			}
+			
+		}
+	}
+	
+![登录结果](/img/mysql/jdbc/12.png) 
+
+##### 4.4 sql注入场景
+> SQL注入  
+> SQL 注入是利用某些系统没有对用户输入的数据进行充分的检查，而在用户输入数据中注入非法的 SQL 语句段或命令，从而利用系统的 SQL 引擎完成恶意行为的做法。对于 Java 而言，要防范 SQL 注入，只要用 PreparedStatement 取代 Statement 就可以了。
+
+如上登录场景,因为我们无法控制用户的输入,当用户输入如下用户名时  
+![sql注入](/img/mysql/jdbc/13.png)  
+依然能登录成功,分析拼接的sql语句为:  
+
+	select * from account where uname="xxx" or 1=1 #" and pwd="ssssssss"
+此条sql语句因为有 `or 1=1` 为 `true` 的存在,所以会将数据库中的数据都查询出来,如图:  
+![sql注入](/img/mysql/jdbc/14.png)   
+故无论密码如何输入,均能登录成功;
+
+##### 4.5 使用PreparedStatement防止sql注入
+PreparedStatement概述  
+可以通过调用 Connection 对象的 preparedStatement(String sql) 方法获取 PreparedStatement 对象
+PreparedStatement 接口是 Statement 的子接口，它表示一条预编译过的 SQL 语句  
+1. PreparedStatement 对象所代表的 SQL 语句中的参数用问号(?)来表示，调用 PreparedStatement 对象的 setXxx() 方法来设置这些参数. setXxx() 方法有两个参数，第一个参数是要设置的 SQL 语句中的参数的索引(从 1 开始)，第二个是设置的 SQL 语句中的参数的值  
+2. ResultSet executeQuery()执行查询，并返回该查询生成的 ResultSet 对象。  
+3. int executeUpdate()：执行更新，包括增、删、该 
+
+用法如下:   
+
+	@Test
+	public void prepareLogin() throws Exception {
+		// 获取用户输入
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("请输入用户名");
+		String uname = scanner.nextLine();
+		System.out.println("请输入密码");
+		String upwd = scanner.nextLine();
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = JDBCUtils.getConnection();
+			// 使用PreparedStatement
+			// statement = connection.createStatement();
+			// String loginSqlString = "select * from account where uname='"+ uname +"' and pwd='"+ upwd +"'";
+			statement = connection.prepareStatement("select * from account where uname = ? and pwd = ?");
+			// 赋值
+			// 第一个参数为第一个?的位置,第二个参数为?占位符的实参,遇到特殊字符会转译,
+			// 会将第二个参数全部赋值给对应形参,如 xxx' or 1=1 # 会全部当作用户名处理,不会出现sql注入的情况
+			statement.setString(1, uname);
+			statement.setString(2, upwd);
+			resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				System.out.println("登录成功!");
+			} else {
+				System.out.println("登录失败!");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			// TODO: handle finally clause
+			JDBCUtils.close(resultSet, statement, connection);
+		}
+	}
+
+登录结果为:  
+![sql注入](/img/mysql/jdbc/15.png) 
+
+## 3. 批量处理
+使用场景:  
+当一次性插入很多条数据时,可以使用批量处理  
+好处:  
+减少执行次数,提高执行效率
+常用方法:  
+addBatch();  
+executeBatch();  
+clearBatch();  
+如场景,一次性插入5000条数据,代码如下:  
+
+	@Test
+	public void prepareLogin() throws Exception {
+		// 获取用户输入
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("请输入用户名");
+		String uname = scanner.nextLine();
+		System.out.println("请输入密码");
+		String upwd = scanner.nextLine();
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try {
+			connection = JDBCUtils.getConnection();
+			statement = connection.prepareStatement("select * from account where uname = ? and pwd = ?");
+			for (int i=1; i<=5000; i++) {
+				statement.setString(1, uname);
+				statement.setString(2, upwd);
+				// 将sql语句添加到批量处理中
+				statement.addBatch();
+				if (i%1000==0) {
+					// 执行批量处理
+					statement.executeBatch();
+					// 清空批量处理中的语句
+					statement.clearBatch();
+				}	
+			}
+			if (resultSet.next()) {
+				System.out.println("登录成功!");
+			} else {
+				System.out.println("登录失败!");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			// TODO: handle finally clause
+			JDBCUtils.close(resultSet, statement, connection);
+		}
+	}
+ 
+## 事物
+	
+	@Test
+	public void test(){
+		Connection  connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = JDBCUtils.getConnection();
+			// 设置自动提交为false  手动开启事务
+			connection.setAutoCommit(false);
+			statement = connection.prepareStatement("update accout set money = ? where uname = ?");
+			statement.setDouble(1, 500);
+			statement.setString(2, "小明");
+			statement.executeUpdate();
+			statement.setDouble(1, 1500);
+			statement.setString(2, "大明");
+			statement.executeUpdate();
+			
+			// 提交事务
+			connection.commit();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try {
+				// 如果出新问题,回滚代码
+				connection.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}finally {
+			JDBCUtils.close(null, statement, connection);
+		}
+	
+	}
+ 
