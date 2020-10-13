@@ -3,7 +3,7 @@ title: Servlet
 date: 2019-10-17 10:49:22
 tags: JavaWEB
 ---
-### 1. 什么是Servlet22?
+### 1. 什么是Servlet?
 + Servlet是Sun公司制定的一套技术标准，包含与Web应用相关的一系列接口，是Web应用实现方式的宏观解决方案。而具体的Servlet容器负责提供标准的实现。
 + Servlet作为服务器端的一个组件，它的本意是“服务器端的小程序”。Servlet的实例对象由Servlet容器负责创建；Servlet的方法由容器在特定情况下调用；Servlet容器会在Web应用卸载时销毁Servlet对象的实例。
 + 简单可以理解为  Servlet就是用来处理客户端的请求的.
